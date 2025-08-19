@@ -1,4 +1,4 @@
-import { pageContent } from "./data.js";
+import { servicesData } from "./data.js";
 import { createServiceCard } from "./cardGenerators.js";
 import { isMobile } from "./utils.js";
 
@@ -12,7 +12,7 @@ function toggleServicesVisibility() {
     if (servicesGrid.classList.contains('services-expanded')) {
         // Currently expanded, hide details and cards beyond the first 3 on mobile
         servicesGrid.classList.remove('services-expanded');
-        seeMoreServicesButton.innerHTML = pageContent.services.buttonTextMore + ' <i class="fas fa-chevron-down"></i>';
+        seeMoreServicesButton.innerHTML = 'See More Services <i class="fas fa-chevron-down"></i>';
          const icon = seeMoreServicesButton.querySelector('i');
         icon.classList.remove('fa-chevron-up');
         icon.classList.add('fa-chevron-down');
@@ -37,7 +37,7 @@ function toggleServicesVisibility() {
     } else {
         // Not expanded, show details for all cards and make all cards visible
         servicesGrid.classList.add('services-expanded');
-        seeMoreServicesButton.innerHTML = pageContent.services.buttonTextLess + ' <i class="fas fa-chevron-up"></i>';
+        seeMoreServicesButton.innerHTML = 'See Less Services <i class="fas fa-chevron-up"></i>';
          const icon = seeMoreServicesButton.querySelector('i');
         icon.classList.remove('fa-chevron-down');
         icon.classList.add('fa-chevron-up');
@@ -76,7 +76,7 @@ export function handleServicesSectionResize() {
                      card.style.display = 'flex';
                  }
              });
-             seeMoreServicesButton.innerHTML = pageContent.services.buttonTextMore + ' <i class="fas fa-chevron-down"></i>';
+             seeMoreServicesButton.innerHTML = 'See More Services <i class="fas fa-chevron-down"></i>';
               const icon = seeMoreServicesButton.querySelector('i');
               icon.classList.remove('fa-chevron-up');
               icon.classList.add('fa-chevron-down');
@@ -89,7 +89,7 @@ export function handleServicesSectionResize() {
               serviceCards.forEach(card => {
                   card.style.display = 'flex'; // All cards visible when expanded
               });
-             seeMoreServicesButton.innerHTML = pageContent.services.buttonTextLess + ' <i class="fas fa-chevron-up"></i>';
+             seeMoreServicesButton.innerHTML = 'See Less Services <i class="fas fa-chevron-up"></i>';
              const icon = seeMoreServicesButton.querySelector('i');
              icon.classList.remove('fa-chevron-down');
              icon.classList.add('fa-chevron-up');
@@ -119,7 +119,7 @@ export function setupServicesSeeMore() {
     if (!servicesGrid || !seeMoreServicesButton) return;
 
     // Render all services initially
-    servicesGrid.innerHTML = pageContent.services.servicesList.map(createServiceCard).join('');
+    servicesGrid.innerHTML = servicesData.map(createServiceCard).join('');
     serviceCards = document.querySelectorAll('#services .service-card'); // Select all cards
 
      // Remove previous listener before adding new one

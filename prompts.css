@@ -64,6 +64,18 @@
     .see-more-button {
         display: flex;
     }
+
+    /* Adjust the grid for 2x2 layout when expanded on mobile if needed, though 1fr should handle */
+    /* If there's a specific "expanded" class for prompts, use that. Otherwise, rely on grid behavior */
+    #prompts.expanded .projects-grid,
+    #prompts.expanded .hidden-prompts {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Allow wrapping to 2 columns */
+    }
+
+    /* Initially hide cards beyond the first 3 on mobile when not expanded */
+    #prompts .projects-grid:not(.prompts-expanded) .project-card:nth-child(n+4) {
+        display: none;
+    }
 }
 
 @media (min-width: 769px) {
@@ -81,5 +93,14 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
     }
-}
 
+    /* Always show all cards on desktop */
+    #prompts .projects-grid .project-card {
+        display: flex !important; /* Use !important to override mobile hide rule */
+    }
+
+    /* Ensure the expanded class is removed on desktop so it doesn't interfere on mobile resize */
+    #prompts .projects-grid.prompts-expanded {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Maintain desktop grid */
+    }
+}

@@ -17,41 +17,27 @@
     margin: 0;
 }
 
-/* Desktop: 3 items visible */
-@media (min-width: 769px) {
-    .project-card.carousel-item {
-        flex: 0 0 calc((100% - 3rem) / 3);
-        width: calc((100% - 3rem) / 3);
-    }
-}
-
-/* Mobile: 1 item visible */
-@media (max-width: 768px) {
-    .project-card.carousel-item {
-        flex: 0 0 100%;
-        width: 100%;
-    }
-}
-
 .project-card.carousel-item {
     box-sizing: border-box;
     margin: 0;
     transition: none;
-    cursor: pointer;
+    flex: 0 0 100%; 
+    width: 100%;
+    cursor: pointer; 
 }
 
 .project-card.carousel-item .project-thumbnail {
-    width: 100%;
+    width: 100%; 
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 4px;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; 
     height: auto;
-    display: block;
+    display: block; 
 }
 
 .carousel-nav {
-    display: none;
+    display: none; 
 }
 
 .carousel-indicators {
@@ -79,3 +65,43 @@
     transform: scale(1.2);
 }
 /* --- End Carousel Styles --- */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .carousel-container {
+    }
+
+    .projects-grid {
+        gap: 1rem;
+    }
+
+    .project-card.carousel-item {
+         padding: 1rem;
+         flex: 0 0 100%; 
+         width: 100%;
+    }
+
+    .carousel-nav {
+        display: none;
+    }
+
+    .project-card.carousel-item .project-thumbnail {
+        width: 100%; 
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        margin-bottom: 1rem; 
+    }
+}
+
+/* Desktop Styles (min-width 769px) */
+@media (min-width: 769px) {
+    #web-apps .project-card.carousel-item,
+    #web-design .project-card.carousel-item {
+        width: calc((100% - 2 * 1.5rem) / 3); 
+        flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
+    }
+
+    .carousel-nav {
+        display: none; 
+    }
+}

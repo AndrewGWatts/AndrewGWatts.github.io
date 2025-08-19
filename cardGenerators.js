@@ -1,4 +1,4 @@
-import { pageContent } from "./data.js";
+import { webAppsData, servicesData, promptsData, webDesignData } from "./data.js";
 
 // Function to generate HTML for a generic Project card (used for both Web Apps and Web Design)
 export function createProjectCard(project) {

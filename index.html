@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title"></title>
+    <title>Andrew Watts</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="about.css">
@@ -33,30 +33,41 @@
         <nav>
             <input type="checkbox" id="menu-toggle">
             <label for="menu-toggle" class="menu-icon">&#9776;</label>
-            <ul class="menu" id="nav-links">
-                <!-- Nav links will be dynamically generated here -->
+            <ul class="menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#web-apps">Web Apps</a></li>
+                <li><a href="#web-design">Web Design</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#prompts">Prompts</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cv.html">CV</a></li>
             </ul>
         </nav>
         <div class="container">
-            <img id="profile-picture" alt="Profile Picture" class="profile-picture">
-            <h1 id="header-name"></h1>
-            <div class="social-icons" id="social-icons">
-                <!-- Social icons will be dynamically generated here -->
+            <!-- Profile picture added here -->
+            <img src="https://avatars.githubusercontent.com/u/101219978?v=4" alt="Andrew Watts Profile Picture" class="profile-picture">
+            <h1>Andrew Watts</h1>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/agwatts" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/ProfPrompt" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:wattsmart@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </header>
 
     <section id="about">
         <div class="container">
-            <h2 id="about-heading"></h2>
-            <p class="intro" id="about-intro">
+            <h2>About Me</h2>
+            <p class="intro">
+                Leveraging a decade in education, I'm a 'vibe coder' who builds innovative AI-powered tools and experiences, blending language learning, Python, Linux, and modern AI models. Explore my projects below to see how I bring visions to life.
             </p>
         </div>
     </section>
 
     <section id="web-apps">
         <div class="container">
-            <h2 id="web-apps-heading"></h2>
+            <h2>Web Apps</h2>
             <div class="carousel-container" id="web-apps-carousel-container">
                 <div class="projects-grid" id="web-apps-grid">
                     <!-- Web App project cards will be dynamically generated here by script.js -->
@@ -71,7 +82,7 @@
 
      <section id="web-design">
         <div class="container">
-            <h2 id="web-design-heading"></h2>
+            <h2>Web Design</h2>
             <div class="carousel-container" id="web-design-carousel-container">
                 <div class="projects-grid" id="web-design-grid">
                     <!-- Web Design project cards will be dynamically generated here by script.js -->
@@ -86,56 +97,57 @@
 
     <section id="skills">
         <div class="container">
-            <h2 id="skills-heading"></h2>
-            <div class="tools-grid" id="skills-grid">
-                <!-- Skills will be dynamically generated here by script.js -->
+            <h2>Tools & Skills</h2>
+            <div class="tools-grid">
+                <h3><i class="fas fa-code"></i> Languages</h3>
+                <p>Python, Bash, JavaScript, HTML/CSS.</p>
+                <h3><i class="fas fa-puzzle-piece"></i> Libraries & Frameworks</h3>
+                <p>NLP (spaCy, NLTK), AI (LangChain, Flowise), Frontend basics.</p>
+                <h3><i class="fas fa-robot"></i> AI/NLP Tools</h3>
+                <p>LLMs (Ollama, OpenAI, Mistral, Gemini, Claude, ChatGPT, Websim).</p>
+                <h3><i class="fas fa-toolbox"></i> Tools & Platforms</h3>
+                <p>Git, VS Code, Jupyter, Linux, OBS, PromptBase, GitHub, Firebase.</p>
             </div>
         </div>
     </section>
 
     <section id="prompts">
         <div class="container">
-            <h2 id="prompts-heading"></h2>
+            <h2>Educational Prompts</h2>
             <div class="projects-grid" id="prompts-grid">
                 <!-- Prompt cards (initially visible) will be dynamically generated here by script.js -->
             </div>
             <div class="hidden-prompts" id="hidden-prompts-grid">
                 <!-- Prompt cards (initially hidden on mobile) will be dynamically generated here by script.js -->
             </div>
-            <button id="see-more-prompts" class="see-more-button">
-                <!-- Button text will be dynamically generated -->
-                <i class="fas fa-chevron-down"></i>
-            </button>
+            <button id="see-more-prompts" class="see-more-button">See More Prompts <i class="fas fa-chevron-down"></i></button>
         </div>
     </section>
 
     <section id="services">
         <div class="container">
-            <h2 id="services-heading"></h2>
+            <h2>Services</h2>
             <div class="services-grid" id="services-grid">
                 <!-- Service cards will be dynamically generated here by script.js -->
             </div>
-             <button id="see-more-services" class="see-more-button">
-                <!-- Button text will be dynamically generated -->
-                <i class="fas fa-chevron-down"></i>
-            </button>
+             <button id="see-more-services" class="see-more-button">See More Services <i class="fas fa-chevron-down"></i></button>
         </div>
     </section>
 
     <section id="contact">
         <div class="container">
-            <h2 id="contact-heading"></h2>
+            <h2>Contact</h2>
             <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> <span id="contact-email"></span></p>
-                <p><i class="fab fa-linkedin"></i> <a id="contact-linkedin-link"></a></p>
-                <p><i class="fab fa-github"></i> <a id="contact-github-link"></a></p>
+                <p><i class="fas fa-envelope"></i> wattsmart@gmail.com</p>
+                <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/agwatts">LinkedIn Profile</a></p>
+                <p><i class="fab fa-github"></i> <a href="https://github.com/ProfPrompt">GitHub Profile</a></p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p id="footer-copyright"></p>
+            <p>&copy; 2024 Andrew Watts</p>
         </div>
     </footer>
 
