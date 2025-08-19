@@ -2,240 +2,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrew Watts</title>
+    <title id="page-title"></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="project-card.css">
+    <link rel="stylesheet" href="featured.css">
+    <link rel="stylesheet" href="skills.css">
+    <link rel="stylesheet" href="prompts.css">
+    <link rel="stylesheet" href="services.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="importmap">
+        {
+            "imports": {
+                "./main.js": "./main.js",
+                "./data.js": "./data.js",
+                "./cardGenerators.js": "./cardGenerators.js",
+                "./carouselLogic.js": "./carouselLogic.js",
+                "./seeMoreServices.js": "./seeMoreServices.js",
+                "./seeMorePrompts.js": "./seeMorePrompts.js",
+                "./utils.js": "./utils.js"
+            }
+        }
+    </script>
 </head>
 <body>
     <header>
+        <nav>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <ul class="menu" id="nav-links">
+                <!-- Nav links will be dynamically generated here -->
+            </ul>
+        </nav>
         <div class="container">
-            <nav>
-                <input type="checkbox" id="menu-toggle">
-                <label for="menu-toggle" class="menu-icon">&#9776;</label>
-                <ul class="menu">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#prompts">Prompts</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <h1>Andrew Watts</h1>
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/agwatts" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/ProfPrompt" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="/cdn-cgi/l/email-protection#45322431313628243731052228242c296b262a28" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <img id="profile-picture" alt="Profile Picture" class="profile-picture">
+            <h1 id="header-name"></h1>
+            <div class="social-icons" id="social-icons">
+                <!-- Social icons will be dynamically generated here -->
             </div>
         </div>
     </header>
 
     <section id="about">
         <div class="container">
-            <p class="intro">
-                Hi, I'm Andrew — a self-taught developer with a background in education and international relations, now focused on AI training, NLP, and prompt engineering.
+            <h2 id="about-heading"></h2>
+            <p class="intro" id="about-intro">
             </p>
-            
-            <h2>About Me</h2>
-            <ul class="about-list">
-                <li>10+ years as an ESL educator and online school owner</li>
-                <li>Transitioning into tech with a focus on language models and educational AI</li>
-                <li>Experienced with Python, Linux, and building tools for learning</li>
-            </ul>
+        </div>
+    </section>
+
+    <section id="web-apps">
+        <div class="container">
+            <h2 id="web-apps-heading"></h2>
+            <div class="carousel-container" id="web-apps-carousel-container">
+                <div class="projects-grid" id="web-apps-grid">
+                    <!-- Web App project cards will be dynamically generated here by script.js -->
+                </div>
+                
+                <div class="carousel-indicators">
+                    <!-- Indicators will be added by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="web-design">
+        <div class="container">
+            <h2 id="web-design-heading"></h2>
+            <div class="carousel-container" id="web-design-carousel-container">
+                <div class="projects-grid" id="web-design-grid">
+                    <!-- Web Design project cards will be dynamically generated here by script.js -->
+                </div>
+                
+                <div class="carousel-indicators">
+                    <!-- Indicators will be added by JS -->
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="skills">
         <div class="container">
-            <h2>Tools & Interests</h2>
-            <div class="tools-grid">
-                <div class="tools-category">
-                    <h3>Languages</h3>
-                    <p>Python, Bash</p>
-                </div>
-                <div class="tools-category">
-                    <h3>Libraries</h3>
-                    <p>spaCy, NLTK, LangChain</p>
-                </div>
-                <div class="tools-category">
-                    <h3>Tools</h3>
-                    <p>Git, VS Code, Jupyter, Ollama, OBS</p>
-                </div>
-                <div class="tools-category">
-                    <h3>Interests</h3>
-                    <p>AI training, chatbot development, open-source education tools</p>
-                </div>
+            <h2 id="skills-heading"></h2>
+            <div class="tools-grid" id="skills-grid">
+                <!-- Skills will be dynamically generated here by script.js -->
             </div>
         </div>
     </section>
 
     <section id="prompts">
         <div class="container">
-            <h2>Educational Prompts</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h3>Word Search Worksheet Generator</h3>
-                    </div>
-                    <p>Generated by GPT, this prompt creates custom word search worksheets.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-book-open"></i>
-                        <h3>Crossword Clue Writer Generator</h3>
-                    </div>
-                    <p>A GPT-based prompt to automatically generate crossword puzzle clues.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-comments"></i>
-                        <h3>RPGpt Generative Role Playing Prompt</h3>
-                    </div>
-                    <p>A prompt that creates interactive role-playing scenarios.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-star"></i>
-                        <h3>Interactive Mind Map Generator</h3>
-                    </div>
-                    <p>A GPT-4 prompt to create interactive mind maps.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-book"></i>
-                        <h3>Advanced Dictionary</h3>
-                    </div>
-                    <p>A GPT prompt for an advanced dictionary.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <h3>Esl Lesson Maker Printable</h3>
-                    </div>
-                    <p>A GPT prompt for creating printable ESL lessons.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-atlas"></i>
-                        <h3>Encyclopedia Entry Generator</h3>
-                    </div>
-                    <p>A GPT prompt for generating encyclopedia entries.</p>
-                    <div class="project-footer">
-                        <a href="https://promptbase.com/profile/profprompt" class="repo-link">
-                            <i class="fas fa-external-link-alt"></i> View on PromptBase
-                        </a>
-                    </div>
-                </div>
+            <h2 id="prompts-heading"></h2>
+            <div class="projects-grid" id="prompts-grid">
+                <!-- Prompt cards (initially visible) will be dynamically generated here by script.js -->
             </div>
+            <div class="hidden-prompts" id="hidden-prompts-grid">
+                <!-- Prompt cards (initially hidden on mobile) will be dynamically generated here by script.js -->
+            </div>
+            <button id="see-more-prompts" class="see-more-button">
+                <!-- Button text will be dynamically generated -->
+                <i class="fas fa-chevron-down"></i>
+            </button>
         </div>
     </section>
 
-    <section id="projects">
+    <section id="services">
         <div class="container">
-            <h2>GitHub Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-code-branch"></i>
-                        <h3>WokeGPT</h3>
-                    </div>
-                    <p>A satirical chatbot using Flowise and Mistral AI's Mixtral LLM.</p>
-                    <div class="project-footer">
-                        <span class="tech-tag">Flowise</span>
-                        <span class="tech-tag">Mistral AI</span>
-                        <a href="https://github.com/ProfPrompt/WokeGPT" class="repo-link"><i class="fab fa-github"></i> View Repository</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Astro Dash</h3>
-                    </div>
-                    <p>A mobile game demo using Java and HTML, co-created with Sonnet 3.7.</p>
-                    <div class="project-footer">
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">HTML</span>
-                        <a href="https://github.com/ProfPrompt/Astro-Dash" class="repo-link"><i class="fab fa-github"></i> View Repository</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-brain"></i>
-                        <h3>Advantaged Player Trainer</h3>
-                    </div>
-                    <p>A mobile brain training game aimed at rapidly teaching blackjack card counting.</p>
-                    <div class="project-footer">
-                        <span class="tech-tag">Mobile Game</span>
-                        <span class="tech-tag">Blackjack</span>
-                        <a href="https://github.com/ProfPrompt/advantagedPlayer" class="repo-link"><i class="fab fa-github"></i> View Repository</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-user"></i>
-                        <h3>Performative AI</h3>
-                    </div>
-                    <p>A collection of AI chatbot character prompts.</p>
-                    <div class="project-footer">
-                        <span class="tech-tag">AI</span>
-                        <span class="tech-tag">Chatbot</span>
-                        <a href="https://github.com/ProfPrompt/performative-ai" class="repo-link"><i class="fab fa-github"></i> View Repository</a>
-                    </div>
-                </div>
+            <h2 id="services-heading"></h2>
+            <div class="services-grid" id="services-grid">
+                <!-- Service cards will be dynamically generated here by script.js -->
             </div>
+             <button id="see-more-services" class="see-more-button">
+                <!-- Button text will be dynamically generated -->
+                <i class="fas fa-chevron-down"></i>
+            </button>
         </div>
     </section>
 
     <section id="contact">
         <div class="container">
-            <h2>Contact</h2>
+            <h2 id="contact-heading"></h2>
             <div class="contact-info">
-                <p><i class="fas fa-phone"></i> 407-760-7183</p>
-                <p><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6611071212150b07141226010b070f0a4805090b">[email&#160;protected]</a></p>
-                <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/agwatts">LinkedIn Profile</a></p>
-                <p><i class="fab fa-github"></i> <a href="https://github.com/ProfPrompt">GitHub Profile</a></p>
+                <p><i class="fas fa-envelope"></i> <span id="contact-email"></span></p>
+                <p><i class="fab fa-linkedin"></i> <a id="contact-linkedin-link"></a></p>
+                <p><i class="fab fa-github"></i> <a id="contact-github-link"></a></p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Andrew Watts</p>
+            <p id="footer-copyright"></p>
         </div>
     </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+    <script type="module" src="./main.js"></script>
+</body>
 </html>

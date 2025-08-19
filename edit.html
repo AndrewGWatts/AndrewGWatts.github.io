@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Site Content</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="importmap">
+        {
+            "imports": {
+                "./data.js": "./data.js",
+                "./editUtils.js": "./editUtils.js",
+                "./editController.js": "./editController.js",
+                "./editFormRenderer.js": "./editFormRenderer.js",
+                "./populateContent.js": "./populateContent.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-edit"></i> Edit Site Content</h1>
+            <p class="subtitle">Visual CMS for Andrew Watts Portfolio</p>
+        </div>
+    </header>
+
+    <!-- Navigation Panel -->
+    <nav class="nav-panel">
+        <h4>Quick Navigation</h4>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#metadata"><i class="fas fa-cog"></i> Metadata</a></li>
+            <li><a href="#header"><i class="fas fa-user"></i> Header</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#webapps"><i class="fas fa-laptop-code"></i> Web Apps</a></li>
+            <li><a href="#webdesign"><i class="fas fa-paint-brush"></i> Web Design</a></li>
+            <li><a href="#skills"><i class="fas fa-tools"></i> Skills</a></li>
+            <li><a href="#prompts"><i class="fas fa-lightbulb"></i> Prompts</a></li>
+            <li><a href="#services"><i class="fas fa-handshake"></i> Services</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="#footer"><i class="fas fa-copyright"></i> Footer</a></li>
+            <li><a href="#cv"><i class="fas fa-file-alt"></i> CV Content</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div id="editor-form">
+                <!-- Form sections will be dynamically generated -->
+            </div>
+
+            <div class="button-group">
+                <button id="saveButton"><i class="fas fa-save"></i> Apply Changes (to editor)</button>
+                <button id="downloadButton"><i class="fas fa-download"></i> Download data.js</button>
+                <button id="resetButton"><i class="fas fa-undo"></i> Reset to Original</button>
+                <button id="clearAllButton"><i class="fas fa-trash"></i> Clear All Data</button>
+            </div>
+            <div id="message" class="message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p id="footer-copyright-editor"></p>
+        </div>
+    </footer>
+
+    <script type="module" src="edit.js"></script>
+</body>
+</html>

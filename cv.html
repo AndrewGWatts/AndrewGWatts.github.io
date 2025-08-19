@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="cv-title-tag"></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="importmap">
+        {
+            "imports": {
+                "./data.js": "./data.js",
+                "./populateContent.js": "./populateContent.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <ul class="menu" id="nav-links">
+                <!-- Nav links will be dynamically generated here -->
+            </ul>
+        </nav>
+        <div class="container">
+            <img id="profile-picture" alt="Profile Picture" class="profile-picture">
+            <h1 id="header-name"></h1>
+            <div class="social-icons" id="social-icons">
+                <!-- Social icons will be dynamically generated here -->
+            </div>
+        </div>
+    </header>
+
+    <section id="cv-content">
+        <div class="container">
+            <h2 id="cv-heading"></h2>
+
+            <h3>Summary</h3>
+            <p id="cv-summary"></p>
+
+            <h3>Work Experience</h3>
+            <div id="cv-experience">
+                <!-- Experience will be dynamically generated here -->
+            </div>
+
+            <h3>Education</h3>
+            <div id="cv-education">
+                <!-- Education will be dynamically generated here -->
+            </div>
+
+            <h3>Skills</h3>
+            <p id="cv-skills-languages"></p>
+            <p id="cv-skills-libraries"></p>
+            <p id="cv-skills-ai-nlp"></p>
+            <p id="cv-skills-tools-platforms"></p>
+            <p id="cv-skills-educational"></p>
+
+            <h3>Projects</h3>
+            <p id="cv-projects-intro"></p>
+            <ul id="cv-projects-list">
+                <!-- Projects list will be dynamically generated here -->
+            </ul>
+
+            <h3>Awards & Recognition</h3>
+            <p id="cv-awards"></p>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p id="footer-copyright"></p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { pageContent } from "./data.js";
+        import { populateHeader, populateFooter, populateCV } from "./populateContent.js";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Page Metadata
+            document.getElementById('cv-title-tag').textContent = pageContent.metadata.cvTitle;
+
+            populateHeader(pageContent.header);
+            populateCV(pageContent.cv);
+            populateFooter(pageContent.footer);
+        });
+    </script>
+</body>
+</html>

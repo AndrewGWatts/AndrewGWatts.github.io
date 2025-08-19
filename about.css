@@ -1,0 +1,21 @@
+#about {
+    text-align: center; 
+}
+
+.intro {
+    font-size: 1.2rem;
+    color: #f0f6fc;
+    margin-bottom: 0; 
+    line-height: 1.6;
+    text-align: center; 
+}
+
+/* Removed old profile picture styling as it's now in header */
+/* removed #about img {} */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+     .intro {
+        font-size: 1.1rem;
+    }
+}

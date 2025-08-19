@@ -1,0 +1,51 @@
+.tools-grid {
+    display: grid;
+    /* Default for desktop - auto-fit will handle layout based on minmax */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem 1.5rem; /* Reduced row gap, kept column gap */
+    margin-bottom: 0; /* Remove margin-bottom as content is not wrapped */
+}
+
+/* Styles now apply directly to h3 and p within the grid */
+#skills .tools-grid h3 {
+    color: #f0f6fc; /* Heading color */
+    margin: 0; /* Remove default margins */
+    font-size: 1rem;
+    display: flex; /* Added flex for icon alignment */
+    align-items: center; /* Center icon and text vertically */
+    gap: 0.5rem; /* Space between icon and text */
+    grid-column: span 1; /* Ensure headers span one column */
+}
+
+#skills .tools-grid h3 i {
+    color: #58a6ff; /* Color the icons */
+    font-size: 1.1rem; /* Slightly increase icon size */
+}
+
+#skills .tools-grid p {
+    margin: 0 0 1rem 0; /* Add bottom margin to paragraphs */
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    grid-column: span 1; /* Ensure paragraphs span one column */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tools-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 column on mobile */
+        gap: 1rem; /* Adjust gap for single column */
+    }
+
+     #skills .tools-grid h3 {
+        font-size: 1.1rem; /* Slightly larger headers on mobile */
+     }
+
+     #skills .tools-grid h3 i {
+         font-size: 1.2rem; /* Slightly larger icons on mobile */
+     }
+
+     #skills .tools-grid p {
+        font-size: 1rem; /* Slightly larger paragraphs on mobile */
+        margin-bottom: 1.5rem; /* More space between entries on mobile */
+     }
+}

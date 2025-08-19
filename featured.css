@@ -1,0 +1,81 @@
+/* --- Carousel Styles --- */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    touch-action: pan-y;
+    cursor: grab;
+}
+
+.projects-grid {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+/* Desktop: 3 items visible */
+@media (min-width: 769px) {
+    .project-card.carousel-item {
+        flex: 0 0 calc((100% - 3rem) / 3);
+        width: calc((100% - 3rem) / 3);
+    }
+}
+
+/* Mobile: 1 item visible */
+@media (max-width: 768px) {
+    .project-card.carousel-item {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
+
+.project-card.carousel-item {
+    box-sizing: border-box;
+    margin: 0;
+    transition: none;
+    cursor: pointer;
+}
+
+.project-card.carousel-item .project-thumbnail {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    height: auto;
+    display: block;
+}
+
+.carousel-nav {
+    display: none;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    z-index: 1;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.indicator.active {
+    background-color: #58a6ff;
+    transform: scale(1.2);
+}
+/* --- End Carousel Styles --- */

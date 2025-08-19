@@ -1,0 +1,133 @@
+#services .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust minmax as needed */
+    gap: 1.5rem;
+    margin-bottom: 1rem; /* Reduced margin to make space for the button */
+}
+
+.service-card {
+    padding: 1.5rem;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background-color: #1f242c; /* Same as project cards */
+    display: flex;
+    flex-direction: column;
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0; /* Removed margin-bottom to make space for description toggle */
+}
+
+.service-header i {
+    color: #58a6ff; /* Icon color */
+    font-size: 1.5rem; /* Larger icons for services */
+}
+
+.service-header h3 {
+    margin: 0;
+    color: #f0f6fc; /* Heading color */
+    font-size: 1.2rem; /* Larger heading for services */
+    flex-grow: 1; /* Allow title to take available space */
+}
+
+.service-details {
+    /* This div wraps the description */
+    margin-top: 1rem; /* Space between header and description when visible */
+}
+
+.service-card p.service-description {
+    color: #c9d1d9; /* Text color */
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Hide descriptions by default on mobile for cards beyond the first 3 */
+@media (max-width: 768px) {
+     /* Hide details for ALL cards when not expanded */
+     #services .services-grid:not(.services-expanded) .service-details {
+        display: none;
+    }
+
+    #services .services-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1x1 on mobile */
+        gap: 1rem;
+    }
+
+    .service-card {
+         padding: 1.25rem;
+    }
+
+    .service-header i {
+        font-size: 1.25rem;
+    }
+
+     .service-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .service-details {
+        margin-top: 0.75rem;
+    }
+
+    .service-card p.service-description {
+        font-size: 0.95rem;
+    }
+
+    /* Show the see more button on mobile */
+     #see-more-services {
+        display: flex;
+        width: max-content;
+        margin: 1rem auto 0 auto;
+        padding: 0.75rem 1.5rem;
+        background-color: #21262d;
+        color: #c9d1d9;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #see-more-services:hover {
+        background-color: #30363d;
+        border-color: #58a6ff;
+    }
+
+    /* Initially hide cards beyond the first 3 on mobile */
+    #services .services-grid:not(.services-expanded) .service-card:nth-child(n+4) {
+         display: none;
+    }
+}
+
+/* Desktop Styles (min-width 769px) */
+@media (min-width: 769px) {
+    #services .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Default desktop layout */
+    }
+
+    /* Always show descriptions on desktop */
+     #services .services-grid .service-details {
+        display: block !important; /* Use !important to override any mobile hide rule */
+    }
+
+    /* Always show all cards on desktop */
+    #services .services-grid .service-card {
+        display: flex !important; /* Use !important to override mobile hide rule */
+    }
+
+    /* Hide the see more button on desktop */
+    #see-more-services {
+        display: none;
+    }
+
+     /* Ensure the expanded class is removed on desktop so it doesn't interfere on mobile resize */
+    #services .services-grid.services-expanded {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Maintain desktop grid */
+    }
+}

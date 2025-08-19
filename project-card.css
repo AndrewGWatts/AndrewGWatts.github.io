@@ -1,0 +1,82 @@
+/* Styles common to all project cards */
+.project-card {
+    padding: 1.5rem;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1f242c; /* Default background for cards */
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: #58a6ff;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.project-header i {
+    color: #58a6ff;
+    font-size: 1.25rem;
+}
+
+.project-header h3 {
+    margin: 0;
+    color: #f0f6fc;
+    font-size: 1.1rem;
+}
+
+.project-footer {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: auto; 
+    display: block; 
+}
+
+.tech-tag {
+    background: #21262d;
+    color: #8b949e;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    display: inline-block; 
+    margin-bottom: 0.5rem; 
+    margin-right: 0.5rem; 
+}
+
+.repo-link {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex; 
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem; 
+}
+
+.repo-link:first-of-type {
+    margin-left: 0; 
+}
+
+.repo-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project-footer {
+        gap: 0.5rem; 
+        display: block; 
+    }
+
+    .repo-link {
+        margin-top: 0.5rem; 
+    }
+}
