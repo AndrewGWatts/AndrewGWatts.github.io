@@ -4,26 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CMS Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { margin-top: 40px; }
-    .item { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; position: relative; }
-    label { display: block; margin: 5px 0 2px; }
-    input, textarea { width: 100%; padding: 5px; margin-bottom: 10px; }
-    button { margin-top: 10px; padding: 8px 15px; }
-    .delete-btn { position: absolute; top: 10px; right: 10px; background: #f44336; color: white; border: none; cursor: pointer; }
-    .add-btn { background: #4CAF50; color: white; margin-bottom: 20px; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0d1117;
+        color: #c9d1d9;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    section {
+        background-color: #161b22;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    h2 { color: #f0f6fc; border-bottom: 2px solid #444; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
+    .item { border: 1px solid #30363d; padding: 1rem; margin-bottom: 1rem; border-radius: 6px; position: relative; background-color: #21262d; cursor: move; }
+    label { display: block; margin: 5px 0 2px; color: #58a6ff; }
+    input, textarea, select { width: 100%; padding: 5px; margin-bottom: 10px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 4px; color: #c9d1d9; }
+    textarea { resize: vertical; min-height: 50px; }
+    button { margin-top: 10px; padding: 8px 15px; border-radius: 6px; cursor: pointer; border: none; }
+    .delete-btn { position: absolute; top: 10px; right: 10px; background: #f44336; color: white; }
+    .add-btn { background: #238636; color: white; margin-bottom: 20px; }
+    .preview-img { max-width: 100px; margin-top: 5px; border-radius: 4px; }
+    .icon-preview { margin-top: 5px; font-size: 1.5rem; }
+    .icon-picker { margin-bottom: 10px; }
+    .drag-over { border: 2px dashed #58a6ff; }
   </style>
 </head>
 <body>
-
-<h1>Admin CMS</h1>
+<div class="container">
+<h1 contenteditable="true">Admin CMS</h1>
 <input type="file" id="fileInput" accept=".js">
 <button onclick="exportData()">Export Updated data.js</button>
 
 <div id="editor"></div>
+</div>
 
 <script>
+const faIcons = [
+  'fas fa-clock','fas fa-brain','fas fa-code-branch','fas fa-gamepad','fas fa-globe','fas fa-palette','fas fa-rocket','fas fa-comments','fas fa-keyboard','fas fa-chalkboard','fas fa-code','fas fa-graduation-cap','fas fa-book-open','fas fa-star','fas fa-book','fas fa-chalkboard-teacher','fas fa-atlas','fas fa-laptop-code','fas fa-user-cog','fas fa-store'
+];
+
 let data = {};
 
 const fileInput = document.getElementById('fileInput');
@@ -42,47 +74,138 @@ fileInput.addEventListener('change', async (e) => {
   }
 });
 
+let dragSrcEl = null;
+function handleDragStart(e) {
+  dragSrcEl = this;
+  e.dataTransfer.effectAllowed = 'move';
+}
+function handleDragOver(e) {
+  e.preventDefault();
+  this.classList.add('drag-over');
+  return false;
+}
+function handleDragLeave(e) {
+  this.classList.remove('drag-over');
+}
+function handleDrop(e) {
+  e.stopPropagation();
+  this.classList.remove('drag-over');
+  if (dragSrcEl !== this) {
+    const section = this.parentElement.getAttribute('data-section');
+    const idx1 = parseInt(dragSrcEl.dataset.index);
+    const idx2 = parseInt(this.dataset.index);
+    const temp = data[section][idx1];
+    data[section][idx1] = data[section][idx2];
+    data[section][idx2] = temp;
+    renderEditor();
+  }
+  return false;
+}
+
 function renderEditor() {
   const container = document.getElementById('editor');
   container.innerHTML = '';
   for (const key in data) {
-    const section = document.createElement('div');
-    section.innerHTML = `<h2>${key}</h2><button class="add-btn" onclick="addItem('${key}')">Add New Item</button>`;
+    const section = document.createElement('section');
+    const sectionTitle = document.createElement('h2');
+    sectionTitle.contentEditable = true;
+    sectionTitle.innerText = key;
+    sectionTitle.addEventListener('input', () => {
+      const newKey = sectionTitle.innerText;
+      if (newKey !== key) {
+        data[newKey] = data[key];
+        delete data[key];
+        renderEditor();
+      }
+    });
 
-    data[key].forEach((item, idx) => {
+    const addButton = document.createElement('button');
+    addButton.classList.add('add-btn');
+    addButton.innerText = 'Add New Item';
+    addButton.onclick = () => addItem(sectionTitle.innerText);
+
+    section.appendChild(sectionTitle);
+    section.appendChild(addButton);
+
+    data[sectionTitle.innerText].forEach((item, idx) => {
       const itemDiv = document.createElement('div');
       itemDiv.classList.add('item');
-      let html = `<button class="delete-btn" onclick="deleteItem('${key}', ${idx})">Delete</button>`;
+      itemDiv.setAttribute('draggable','true');
+      itemDiv.dataset.index = idx;
+      itemDiv.parentElement && itemDiv.parentElement.setAttribute('data-section', sectionTitle.innerText);
+      itemDiv.addEventListener('dragstart', handleDragStart);
+      itemDiv.addEventListener('dragover', handleDragOver);
+      itemDiv.addEventListener('dragleave', handleDragLeave);
+      itemDiv.addEventListener('drop', handleDrop);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('delete-btn');
+      deleteBtn.innerText = 'Delete';
+      deleteBtn.onclick = () => deleteItem(sectionTitle.innerText, idx);
+      itemDiv.appendChild(deleteBtn);
+
       for (const field in item) {
-        const value = Array.isArray(item[field]) ? item[field].join(', ') : item[field];
-        html += `<label>${field}</label><input data-section="${key}" data-index="${idx}" data-field="${field}" value="${value}">`;
+        const label = document.createElement('label');
+        label.innerText = field;
+        let input;
+        if (['description','link'].includes(field)) {
+          input = document.createElement('textarea');
+        } else if (field === 'techTags') {
+          input = document.createElement('input');
+        } else if (field === 'iconClass') {
+          input = document.createElement('select');
+          input.classList.add('icon-picker');
+          faIcons.forEach(icon => {
+            const option = document.createElement('option');
+            option.value = icon;
+            option.text = icon;
+            if(icon === item[field]) option.selected = true;
+            input.appendChild(option);
+          });
+        } else {
+          input = document.createElement('input');
+        }
+        input.value = Array.isArray(item[field]) ? item[field].join(', ') : item[field];
+        input.dataset.section = sectionTitle.innerText;
+        input.dataset.index = idx;
+        input.dataset.field = field;
+        input.addEventListener('input', (e) => {
+          let value = e.target.value;
+          if (field === 'techTags') value = value.split(',').map(t => t.trim());
+          data[sectionTitle.innerText][idx][field] = value;
+          if(field === 'imgSrc') imgPreview.src = value;
+          if(field === 'iconClass') iconPreview.className = value;
+        });
+
+        itemDiv.appendChild(label);
+        itemDiv.appendChild(input);
+
+        if(field === 'imgSrc') {
+          var imgPreview = document.createElement('img');
+          imgPreview.src = item[field];
+          imgPreview.classList.add('preview-img');
+          itemDiv.appendChild(imgPreview);
+        }
+
+        if(field === 'iconClass') {
+          var iconPreview = document.createElement('i');
+          iconPreview.className = item[field];
+          iconPreview.classList.add('icon-preview');
+          itemDiv.appendChild(iconPreview);
+        }
       }
-      itemDiv.innerHTML = html;
       section.appendChild(itemDiv);
     });
 
     container.appendChild(section);
   }
-
-  container.querySelectorAll('input').forEach(input => {
-    input.addEventListener('input', (e) => {
-      const section = e.target.dataset.section;
-      const idx = e.target.dataset.index;
-      const field = e.target.dataset.field;
-      let value = e.target.value;
-      if (field === 'techTags') value = value.split(',').map(t => t.trim());
-      data[section][idx][field] = value;
-    });
-  });
 }
 
 function addItem(section) {
   const sample = {};
   if (data[section].length > 0) {
     const first = data[section][0];
-    for (const field in first) {
-      sample[field] = Array.isArray(first[field]) ? [] : '';
-    }
+    for (const field in first) sample[field] = Array.isArray(first[field]) ? [] : '';
   }
   data[section].push(sample);
   renderEditor();
