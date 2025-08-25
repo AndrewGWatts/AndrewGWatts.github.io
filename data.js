@@ -1,158 +1,197 @@
 export const webAppsData = [
     {
-        imgSrc: "asset/placeholder-loading-now.png",
-        imgAlt: "Loading Now Thumbnail",
-        iconClass: "fas fa-clock",
-        title: "Loading Now...",
-        description: "A web app displaying the day, week, month, year, and decade time as a progress bar with themes inspired by various past OS interfaces.",
-        techTags: ["Web App", "Themes"],
-        repoLink: "https://github.com/loadingnowapp/loadingnowapp.github.io",
-        demoLink: "https://loadingnowapp.github.io"
+        "imgSrc": "asset/placeholder-loading-now.png",
+        "imgAlt": "Loading Now Thumbnail",
+        "iconClass": "fas fa-clock",
+        "title": "Loading Now...",
+        "description": "A web app displaying the day, week, month, year, and decade time as a progress bar with themes inspired by various past OS interfaces.",
+        "techTags": [
+            "Web App",
+            "Themes"
+        ],
+        "repoLink": "https://github.com/loadingnowapp/loadingnowapp.github.io",
+        "demoLink": "https://loadingnowapp.github.io"
     },
     {
-        imgSrc: "asset/placeholder-advantaged-player-webapp.png",
-        imgAlt: "Advantaged Player Trainer Thumbnail",
-        iconClass: "fas fa-brain",
-        title: "Advantaged Player Trainer",
-        description: "A card counting brain training webapp designed to help users rapidly learn blackjack card counting skills.",
-        techTags: ["Web App", "Blackjack"],
-        repoLink: "https://github.com/advantagedplayer/advantagedplayer.github.io",
-        demoLink: "https://advantagedplayer.github.io"
+        "imgSrc": "asset/placeholder-advantaged-player-webapp.png",
+        "imgAlt": "Advantaged Player Trainer Thumbnail",
+        "iconClass": "fas fa-brain",
+        "title": "Advantaged Player Trainer",
+        "description": "A card counting brain training webapp designed to help users rapidly learn blackjack card counting skills.",
+        "techTags": [
+            "Web App",
+            "Blackjack"
+        ],
+        "repoLink": "https://github.com/advantagedplayer/advantagedplayer.github.io",
+        "demoLink": "https://advantagedplayer.github.io"
     },
     {
-        imgSrc: "asset/woke_gpt_placeholder.png",
-        imgAlt: "WokeGPT Thumbnail",
-        iconClass: "fas fa-code-branch",
-        title: "WokeGPT",
-        description: "A satirical chatbot using Flowise and Mistral AI's Mixtral LLM.",
-        techTags: ["Flowise", "Mistral AI"],
-        repoLink: "https://github.com/wokegpt/wokegpt.github.io",
-        demoLink: "https://wokegpt.github.io"
+        "imgSrc": "asset/woke_gpt_placeholder.png",
+        "imgAlt": "WokeGPT Thumbnail",
+        "iconClass": "fas fa-code-branch",
+        "title": "WokeGPT",
+        "description": "A satirical chatbot using Flowise and Mistral AI's Mixtral LLM.",
+        "techTags": [
+            "Flowise",
+            "Mistral AI"
+        ],
+        "repoLink": "https://github.com/wokegpt/wokegpt.github.io",
+        "demoLink": "https://wokegpt.github.io"
     },
     {
-        imgSrc: "asset/astro_dash_placeholder.png",
-        imgAlt: "Astro Dash Thumbnail",
-        iconClass: "fas fa-gamepad",
-        title: "Astro Dash",
-        description: "A mobile game demo using Java and HTML, co-created with Sonnet 3.7.",
-        techTags: ["Java", "HTML"],
-        repoLink: "https://github.com/astrodashapp/astrodashapp.github.io",
-        demoLink: "https://astrodashapp.github.io"
+        "imgSrc": "asset/astro_dash_placeholder.png",
+        "imgAlt": "Astro Dash Thumbnail",
+        "iconClass": "fas fa-gamepad",
+        "title": "Astro Dash",
+        "description": "A mobile game demo using Java and HTML, co-created with Sonnet 3.7.",
+        "techTags": [
+            "Java",
+            "HTML"
+        ],
+        "repoLink": "https://github.com/astrodashapp/astrodashapp.github.io",
+        "demoLink": "https://astrodashapp.github.io"
+    },
+    {
+        "imgSrc": "aseset/retro.png",
+        "imgAlt": "Retro App Thumbnail",
+        "iconClass": "fas fa-tv",
+        "title": "Retro",
+        "description": "An AI driven webapp to discover and manage your video collection.",
+        "techTags": [
+            "AI",
+            "HTML",
+            "Javascript",
+            "Websim"
+        ],
+        "repoLink": "https://github.com/astrodashapp/astrodashapp.github.io",
+        "demoLink": "https://astrodashapp.github.io"
     }
 ];
 
 export const servicesData = [
     {
-        iconClass: "fas fa-globe",
-        title: "Custom Web App Development",
-        description: "Building bespoke web applications and tools tailored to your specific needs, focusing on functionality and user experience."
+        "iconClass": "fas fa-globe",
+        "title": "Custom Web App Development",
+        "description": "Building bespoke web applications and tools tailored to your specific needs, focusing on functionality and user experience."
     },
     {
-        iconClass: "fas fa-palette",
-        title: "Themed Interface Design",
-        description: "Creating unique visual styles and thematic interfaces for websites and web applications to capture a distinct feel."
+        "iconClass": "fas fa-palette",
+        "title": "Themed Interface Design",
+        "description": "Creating unique visual styles and thematic interfaces for websites and web applications to capture a distinct feel."
     },
     {
-        iconClass: "fas fa-rocket",
-        title: "Rapid Prototyping (Web/App)",
-        description: "Quickly bringing your web or app vision to life through efficient, AI-accelerated prototyping."
+        "iconClass": "fas fa-rocket",
+        "title": "Rapid Prototyping (Web/App)",
+        "description": "Quickly bringing your web or app vision to life through efficient, AI-accelerated prototyping."
     },
     {
-        iconClass: "fas fa-comments",
-        title: "AI Chatbot Integration",
-        description: "Developing and integrating intelligent chatbots using modern language models for engaging and dynamic interactions."
+        "iconClass": "fas fa-comments",
+        "title": "AI Chatbot Integration",
+        "description": "Developing and integrating intelligent chatbots using modern language models for engaging and dynamic interactions."
     },
     {
-        iconClass: "fas fa-keyboard",
-        title: "Prompt Engineering & Content",
-        description: "Designing advanced prompts for AI models to generate creative content and interactive scenarios."
+        "iconClass": "fas fa-keyboard",
+        "title": "Prompt Engineering & Content",
+        "description": "Designing advanced prompts for AI models to generate creative content and interactive scenarios."
     },
     {
-        iconClass: "fas fa-chalkboard",
-        title: "Educational Tool Development",
-        description: "Creating interactive web-based tools and generators designed to enhance learning and skill development."
+        "iconClass": "fas fa-chalkboard",
+        "title": "Educational Tool Development",
+        "description": "Creating interactive web-based tools and generators designed to enhance learning and skill development."
     },
     {
-        iconClass: "fas fa-code",
-        title: "Unique Web Experiences",
-        description: "Crafting engaging and memorable interactive web content with a focus on creative expression and distinct personality."
+        "iconClass": "fas fa-code",
+        "title": "Unique Web Experiences",
+        "description": "Crafting engaging and memorable interactive web content with a focus on creative expression and distinct personality."
     }
 ];
 
 export const promptsData = [
     {
-        iconClass: "fas fa-graduation-cap",
-        title: "Word Search Worksheet Generator",
-        description: "Generated by GPT, this prompt creates custom word search worksheets.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-graduation-cap",
+        "title": "Word Search Worksheet Generator",
+        "description": "Generated by GPT, this prompt creates custom word search worksheets.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-book-open",
-        title: "Crossword Clue Writer Generator",
-        description: "A GPT-based prompt to automatically generate crossword puzzle clues.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-book-open",
+        "title": "Crossword Clue Writer Generator",
+        "description": "A GPT-based prompt to automatically generate crossword puzzle clues.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-comments",
-        title: "RPGpt Generative Role Playing Prompt",
-        description: "A prompt that creates interactive role-playing scenarios.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-comments",
+        "title": "RPGpt Generative Role Playing Prompt",
+        "description": "A prompt that creates interactive role-playing scenarios.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-star",
-        title: "Interactive Mind Map Generator",
-        description: "A GPT-4 prompt to create interactive mind maps.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-star",
+        "title": "Interactive Mind Map Generator",
+        "description": "A GPT-4 prompt to create interactive mind maps.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-book",
-        title: "Advanced Dictionary",
-        description: "A GPT prompt for an advanced dictionary.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-book",
+        "title": "Advanced Dictionary",
+        "description": "A GPT prompt for an advanced dictionary.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-chalkboard-teacher",
-        title: "Esl Lesson Maker Printable",
-        description: "A GPT prompt for creating printable ESL lessons.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-chalkboard-teacher",
+        "title": "Esl Lesson Maker Printable",
+        "description": "A GPT prompt for creating printable ESL lessons.",
+        "link": "https://promptbase.com/profile/profprompt"
     },
     {
-        iconClass: "fas fa-atlas",
-        title: "Encyclopedia Entry Generator",
-        description: "A GPT prompt for generating encyclopedia entries.",
-        link: "https://promptbase.com/profile/profprompt"
+        "iconClass": "fas fa-atlas",
+        "title": "Encyclopedia Entry Generator",
+        "description": "A GPT prompt for generating encyclopedia entries.",
+        "link": "https://promptbase.com/profile/profprompt"
     }
 ];
 
 export const webDesignData = [
-     {
-        imgSrc: "asset/placeholder-podcast-producer-site.png",
-        imgAlt: "Personal Website Concept Thumbnail",
-        iconClass: "fas fa-laptop-code",
-        title: "Personal Website Concept",
-        description: "A design concept for a modern, professional online presence.",
-        techTags: ["Web Design", "Portfolio"],
-        repoLink: "#", // Placeholder
-        demoLink: "#" // Placeholder
+    {
+        "imgSrc": "asset/placeholder-podcast-producer-site.png",
+        "imgAlt": "Personal Website Concept Thumbnail",
+        "iconClass": "fas fa-laptop-code",
+        "title": "Personal Website Concept",
+        "description": "A design concept for a modern, professional online presence.",
+        "techTags": [
+            "Web Design",
+            "Portfolio"
+        ],
+        "repoLink": "#",
+        "demoLink": "#"
     },
     {
-        imgSrc: "asset/placeholder-andrew-watts-site.png",
-        imgAlt: "Portfolio Site Design Thumbnail",
-        iconClass: "fas fa-user-cog",
-        title: "Portfolio Site Design",
-        description: "The design concept for this very portfolio website, focused on clear presentation of projects and skills.",
-        techTags: ["Web Design", "Portfolio", "Current Site"],
-        repoLink: "https://github.com/ProfPrompt/websim-portfolio", // Placeholder
-        demoLink: "#" // This is the current site
+        "imgSrc": "asset/placeholder-andrew-watts-site.png",
+        "imgAlt": "Portfolio Site Design Thumbnail",
+        "iconClass": "fas fa-user-cog",
+        "title": "Portfolio Site Design",
+        "description": "The design concept for this very portfolio website, focused on clear presentation of projects and skills.",
+        "techTags": [
+            "Web Design",
+            "Portfolio",
+            "Current Site"
+        ],
+        "repoLink": "https://github.com/ProfPrompt/websim-portfolio",
+        "demoLink": "#"
     },
     {
-        imgSrc: "asset/placeholder-sports-marketplace-template.png",
-        imgAlt: "Marketplace Template Design Thumbnail",
-        iconClass: "fas fa-store",
-        title: "Marketplace Template",
-        description: "A template design for an online marketplace platform.",
-        techTags: ["Web Design", "Marketplace", "Template"],
-        repoLink: "#", // Placeholder
-        demoLink: "#" // Placeholder
+        "imgSrc": "asset/placeholder-sports-marketplace-template.png",
+        "imgAlt": "Marketplace Template Design Thumbnail",
+        "iconClass": "fas fa-store",
+        "title": "Marketplace Template",
+        "description": "A template design for an online marketplace platform.",
+        "techTags": [
+            "Web Design",
+            "Marketplace",
+            "Template"
+        ],
+        "repoLink": "#",
+        "demoLink": "#"
     }
 ];
+
