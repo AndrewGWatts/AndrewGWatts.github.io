@@ -85,138 +85,130 @@ function renderEditor() {
         renderEditor();
       }
     });
+    section.appendChild(sectionTitle);
 
     const addButton = document.createElement('button');
     addButton.classList.add('add-btn');
     addButton.innerText = 'Add New Item';
-    addButton.onclick = () => addItem(sectionTitle.innerText);
-
-    section.appendChild(sectionTitle);
+    addButton.onclick = () => addItem(key);
     section.appendChild(addButton);
 
-    if(Array.isArray(data[key])){
-      data[key].forEach((item, idx) => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item');
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.innerText = 'Delete';
-        deleteBtn.onclick = () => deleteItem(key, idx);
-        itemDiv.appendChild(deleteBtn);
-
-        for (const field in item) {
-          const label = document.createElement('label');
-          label.innerText = field;
-          let input;
-          if(['description','links','title','imgAlt','imgSrc'].includes(field)){
-            input = document.createElement('textarea');
-          } else if(field==='techTags'){
-            input = document.createElement('input');
-          } else if(field==='iconClass'){
-            input = document.createElement('select');
-            input.classList.add('icon-picker');
-            faIcons.forEach(icon => {
-              const option = document.createElement('option');
-              option.value = icon;
-              option.text = icon;
-              if(icon === item[field]) option.selected = true;
-              input.appendChild(option);
-            });
-          } else {
-            input = document.createElement('input');
-          }
-
-          input.value = Array.isArray(item[field]) ? item[field].join(', ') : item[field];
-          input.dataset.section = key;
-          input.dataset.index = idx;
-          input.dataset.field = field;
-          input.addEventListener('input', (e)=>{
-            let value = e.target.value;
-            if(field==='techTags') value=value.split(',').map(t=>t.trim());
-            item[field] = value;
-            if(field==='imgSrc') imgPreview.src=value;
-            if(field==='iconClass') iconPreview.className=value;
-          });
-
-          itemDiv.appendChild(label);
-          itemDiv.appendChild(input);
-
-          if(field==='imgSrc'){
-            var imgPreview=document.createElement('img');
-            imgPreview.src=item[field];
-            imgPreview.classList.add('preview-img');
-            itemDiv.appendChild(imgPreview);
-          }
-
-          if(field==='iconClass'){
-            var iconPreview=document.createElement('i');
-            iconPreview.className=item[field];
-            iconPreview.classList.add('icon-preview');
-            itemDiv.appendChild(iconPreview);
-          }
-
-          if(field==='links'){
-            item.links.forEach((linkObj, linkIdx)=>{
-              const linkDiv = document.createElement('div');
-              const linkTextLabel = document.createElement('label');
-              linkTextLabel.innerText='Link Text';
-              const linkTextInput=document.createElement('input');
-              linkTextInput.value=linkObj.text;
-              linkTextInput.addEventListener('input',e=>linkObj.text=e.target.value);
-
-              const linkUrlLabel=document.createElement('label');
-              linkUrlLabel.innerText='Link URL';
-              const linkUrlInput=document.createElement('input');
-              linkUrlInput.value=linkObj.url;
-              linkUrlInput.addEventListener('input',e=>linkObj.url=e.target.value);
-
-              const linkIconLabel=document.createElement('label');
-              linkIconLabel.innerText='Link Icon';
-              const linkIconSelect=document.createElement('select');
-              faIcons.forEach(icon=>{
-                const option=document.createElement('option');
-                option.value=icon;
-                option.text=icon;
-                if(icon===linkObj.icon) option.selected=true;
-                linkIconSelect.appendChild(option);
-              });
-              linkIconSelect.addEventListener('input',e=>linkObj.icon=e.target.value);
-
-              linkDiv.appendChild(linkTextLabel);
-              linkDiv.appendChild(linkTextInput);
-              linkDiv.appendChild(linkUrlLabel);
-              linkDiv.appendChild(linkUrlInput);
-              linkDiv.appendChild(linkIconLabel);
-              linkDiv.appendChild(linkIconSelect);
-
-              itemDiv.appendChild(linkDiv);
-            });
-            const addLinkBtn=document.createElement('button');
-            addLinkBtn.classList.add('add-btn');
-            addLinkBtn.innerText='Add Link';
-            addLinkBtn.onclick=()=>{item.links.push({text:'',url:'',icon:'fas fa-external-link-alt'}); renderEditor();};
-            itemDiv.appendChild(addLinkBtn);
-          }
-        }
-        section.appendChild(itemDiv);
-      });
+    const value = data[key];
+    if(Array.isArray(value)){
+      value.forEach((item, idx) => renderItem(section, key, idx, item));
+    } else if(typeof value==='object'){
+      for(const objKey in value){
+        const label = document.createElement('label');
+        label.innerText = objKey;
+        const input = document.createElement('input');
+        input.value = value[objKey];
+        input.addEventListener('input', e => value[objKey] = e.target.value);
+        section.appendChild(label);
+        section.appendChild(input);
+      }
     }
     container.appendChild(section);
   }
 }
 
+function renderItem(section, sectionKey, idx, item){
+  const itemDiv = document.createElement('div');
+  itemDiv.classList.add('item');
+  const deleteBtn = document.createElement('button');
+  deleteBtn.classList.add('delete-btn');
+  deleteBtn.innerText = 'Delete';
+  deleteBtn.onclick = () => deleteItem(sectionKey, idx);
+  itemDiv.appendChild(deleteBtn);
+
+  for(const field in item){
+    const label = document.createElement('label');
+    label.innerText = field;
+    let input;
+    if(['description','title','imgAlt','imgSrc'].includes(field)){
+      input=document.createElement('textarea');
+    } else if(field==='techTags'){
+      input=document.createElement('input');
+    } else if(field==='iconClass'){
+      input=document.createElement('select');
+      faIcons.forEach(icon=>{
+        const option=document.createElement('option');
+        option.value=icon;
+        option.text=icon;
+        if(icon===item[field]) option.selected=true;
+        input.appendChild(option);
+      });
+    } else {
+      input=document.createElement('input');
+    }
+    input.value=Array.isArray(item[field])?item[field].join(', '):item[field];
+    input.addEventListener('input', e=>{
+      let value=e.target.value;
+      if(field==='techTags') value=value.split(',').map(t=>t.trim());
+      item[field]=value;
+      if(field==='imgSrc') imgPreview.src=value;
+      if(field==='iconClass') iconPreview.className=value;
+    });
+    itemDiv.appendChild(label);
+    itemDiv.appendChild(input);
+
+    if(field==='imgSrc'){
+      var imgPreview=document.createElement('img');
+      imgPreview.src=item[field];
+      imgPreview.classList.add('preview-img');
+      itemDiv.appendChild(imgPreview);
+    }
+    if(field==='iconClass'){
+      var iconPreview=document.createElement('i');
+      iconPreview.className=item[field];
+      iconPreview.classList.add('icon-preview');
+      itemDiv.appendChild(iconPreview);
+    }
+    if(field==='links'){
+      item.links.forEach((linkObj, linkIdx)=>{
+        const linkDiv=document.createElement('div');
+        ['text','url','icon'].forEach(f=>{
+          const linkLabel=document.createElement('label');
+          linkLabel.innerText=f;
+          const linkInput=f==='icon'?document.createElement('select'):document.createElement('input');
+          if(f==='icon'){
+            faIcons.forEach(icon=>{
+              const option=document.createElement('option');
+              option.value=icon; option.text=icon;
+              if(icon===linkObj.icon) option.selected=true;
+              linkInput.appendChild(option);
+            });
+            linkInput.addEventListener('input', e=>linkObj.icon=e.target.value);
+          } else {
+            linkInput.value=linkObj[f];
+            linkInput.addEventListener('input', e=>linkObj[f]=e.target.value);
+          }
+          linkDiv.appendChild(linkLabel);
+          linkDiv.appendChild(linkInput);
+        });
+        itemDiv.appendChild(linkDiv);
+      });
+      const addLinkBtn=document.createElement('button');
+      addLinkBtn.classList.add('add-btn');
+      addLinkBtn.innerText='Add Link';
+      addLinkBtn.onclick=()=>{item.links.push({text:'',url:'',icon:'fas fa-external-link-alt'}); renderEditor();};
+      itemDiv.appendChild(addLinkBtn);
+    }
+  }
+  section.appendChild(itemDiv);
+}
+
 function addItem(section){
+  if(!Array.isArray(data[section])) return;
   const sample={};
-  if(Array.isArray(data[section]) && data[section].length>0){
+  if(data[section].length>0){
     const first=data[section][0];
     for(const field in first) sample[field]=Array.isArray(first[field])?[]:'';
   }
-  if(Array.isArray(data[section])) data[section].push(sample);
+  data[section].push(sample);
   renderEditor();
 }
 
-function deleteItem(section,idx){
+function deleteItem(section, idx){
   if(Array.isArray(data[section])) data[section].splice(idx,1);
   renderEditor();
 }
@@ -224,7 +216,7 @@ function deleteItem(section,idx){
 function exportData(){
   let output='';
   for(const key in data){
-    output+=`export const ${key} = ${JSON.stringify(data[key],null,4)};
+    output+=`export const ${key} = ${JSON.stringify(data[key], null, 4)};
 
 `;
   }
@@ -237,6 +229,5 @@ function exportData(){
   URL.revokeObjectURL(url);
 }
 </script>
-
 </body>
 </html>
