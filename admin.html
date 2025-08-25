@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Admin</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { margin-top: 40px; }
+    .item { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; position: relative; }
+    label { display: block; margin: 5px 0 2px; }
+    input, textarea { width: 100%; padding: 5px; margin-bottom: 10px; }
+    button { margin-top: 10px; padding: 8px 15px; }
+    .delete-btn { position: absolute; top: 10px; right: 10px; background: #f44336; color: white; border: none; cursor: pointer; }
+    .add-btn { background: #4CAF50; color: white; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+<h1>Admin CMS</h1>
+<input type="file" id="fileInput" accept=".js">
+<button onclick="exportData()">Export Updated data.js</button>
+
+<div id="editor"></div>
+
+<script>
+let data = {};
+
+const fileInput = document.getElementById('fileInput');
+fileInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const text = await file.text();
+    const cleaned = text.replace(/export const /g, '');
+    data = {};
+    eval(cleaned);
+    data.webAppsData = webAppsData;
+    data.servicesData = servicesData;
+    data.promptsData = promptsData;
+    data.webDesignData = webDesignData;
+    renderEditor();
+  }
+});
+
+function renderEditor() {
+  const container = document.getElementById('editor');
+  container.innerHTML = '';
+  for (const key in data) {
+    const section = document.createElement('div');
+    section.innerHTML = `<h2>${key}</h2><button class="add-btn" onclick="addItem('${key}')">Add New Item</button>`;
+
+    data[key].forEach((item, idx) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('item');
+      let html = `<button class="delete-btn" onclick="deleteItem('${key}', ${idx})">Delete</button>`;
+      for (const field in item) {
+        const value = Array.isArray(item[field]) ? item[field].join(', ') : item[field];
+        html += `<label>${field}</label><input data-section="${key}" data-index="${idx}" data-field="${field}" value="${value}">`;
+      }
+      itemDiv.innerHTML = html;
+      section.appendChild(itemDiv);
+    });
+
+    container.appendChild(section);
+  }
+
+  container.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const section = e.target.dataset.section;
+      const idx = e.target.dataset.index;
+      const field = e.target.dataset.field;
+      let value = e.target.value;
+      if (field === 'techTags') value = value.split(',').map(t => t.trim());
+      data[section][idx][field] = value;
+    });
+  });
+}
+
+function addItem(section) {
+  const sample = {};
+  if (data[section].length > 0) {
+    const first = data[section][0];
+    for (const field in first) {
+      sample[field] = Array.isArray(first[field]) ? [] : '';
+    }
+  }
+  data[section].push(sample);
+  renderEditor();
+}
+
+function deleteItem(section, idx) {
+  data[section].splice(idx, 1);
+  renderEditor();
+}
+
+function exportData() {
+  let output = '';
+  for (const key in data) {
+    output += `export const ${key} = ${JSON.stringify(data[key], null, 4)};\n\n`;
+  }
+  const blob = new Blob([output], { type: 'text/javascript' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'data.js';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
