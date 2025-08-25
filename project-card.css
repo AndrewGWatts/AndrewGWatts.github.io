@@ -1,18 +1,18 @@
 /* Styles common to all project cards */
 .project-card {
     padding: 1.5rem;
-    border: 1px solid #30363d;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     transition: transform 0.2s ease, border-color 0.2s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #1f242c; /* Default background for cards */
+    background-color: var(--card-background-color); /* Default background for cards */
 }
 
 .project-card:hover {
     transform: translateY(-4px);
-    border-color: #58a6ff;
+    border-color: var(--link-color);
 }
 
 .project-header {
@@ -23,13 +23,13 @@
 }
 
 .project-header i {
-    color: #58a6ff;
+    color: var(--link-color);
     font-size: 1.25rem;
 }
 
 .project-header h3 {
     margin: 0;
-    color: #f0f6fc;
+    color: var(--text-color-primary);
     font-size: 1.1rem;
 }
 
@@ -41,8 +41,8 @@
 }
 
 .tech-tag {
-    background: #21262d;
-    color: #8b949e;
+    background: var(--tech-tag-background);
+    color: var(--tech-tag-color);
     padding: 0.25rem 0.75rem;
     border-radius: 2rem;
     font-size: 0.85rem;
@@ -52,7 +52,7 @@
 }
 
 .repo-link {
-    color: #58a6ff;
+    color: var(--link-color);
     text-decoration: none;
     font-size: 0.9rem;
     display: flex; 

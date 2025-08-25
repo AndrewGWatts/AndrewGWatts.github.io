@@ -4,7 +4,7 @@
 
 .intro {
     font-size: 1.2rem;
-    color: #f0f6fc;
+    color: var(--text-color-primary);
     margin-bottom: 0; 
     line-height: 1.6;
     text-align: center; 
