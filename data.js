@@ -1,233 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CMS Admin</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #0d1117;
-        color: #c9d1d9;
-        margin: 0;
-        padding: 0;
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-    .container {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    section {
-        background-color: #161b22;
-        margin-bottom: 2rem;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    h2 { color: #f0f6fc; border-bottom: 2px solid #444; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
-    .item { border: 1px solid #30363d; padding: 1rem; margin-bottom: 1rem; border-radius: 6px; position: relative; background-color: #21262d; }
-    label { display: block; margin: 5px 0 2px; color: #58a6ff; }
-    input, textarea, select { width: 100%; padding: 5px; margin-bottom: 10px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 4px; color: #c9d1d9; }
-    textarea { resize: vertical; min-height: 50px; }
-    button { margin-top: 10px; padding: 8px 15px; border-radius: 6px; cursor: pointer; border: none; }
-    .delete-btn { position: absolute; top: 10px; right: 10px; background: #f44336; color: white; }
-    .add-btn { background: #238636; color: white; margin-bottom: 20px; }
-    .preview-img { max-width: 100px; margin-top: 5px; border-radius: 4px; }
-    .icon-preview { margin-top: 5px; font-size: 1.5rem; }
-    .icon-picker { margin-bottom: 10px; }
-  </style>
-</head>
-<body>
-<div class="container">
-<h1 contenteditable="true">Admin CMS</h1>
-<input type="file" id="fileInput" accept=".js">
-<button onclick="exportData()">Export Updated data.js</button>
+export const sectionsData = {
+    featuredSectionOne: "Web Apps",
+    featuredSectionTwo: "Web Design",
+    listTitle: "Tools & Skills",
+    textcardTitle: "Educational Prompts",
+    listTitle2: "Services",
+    contactTitle: "Contact"
+};
 
-<div id="editor"></div>
-</div>
-
-<script>
-const faIcons = [
-  'fas fa-clock','fas fa-brain','fas fa-code-branch','fas fa-gamepad','fas fa-globe','fas fa-palette','fas fa-rocket','fas fa-comments','fas fa-keyboard','fas fa-chalkboard','fas fa-code','fas fa-graduation-cap','fas fa-book-open','fas fa-star','fas fa-book','fas fa-chalkboard-teacher','fas fa-atlas','fas fa-laptop-code','fas fa-user-cog','fas fa-store','fas fa-tv','fas fa-desktop','fas fa-mobile-alt','fas fa-cogs','fas fa-magic','fas fa-film','fas fa-microphone','fas fa-external-link-alt','fab fa-github'
+export const webAppsData = [
+    {
+        imgSrc: "asset/placeholder-loading-now.png",
+        imgAlt: "Loading Now Thumbnail",
+        iconClass: "fas fa-clock",
+        title: "Loading Now...",
+        description: "A web app displaying the day, week, month, year, and decade time as a progress bar with themes inspired by various past OS interfaces.",
+        techTags: ["Web App", "Themes"],
+        links: [
+            { text: "View Demo", url: "https://loadingnowapp.github.io", icon: "fas fa-external-link-alt" },
+            { text: "View Repository", url: "https://github.com/loadingnowapp/loadingnowapp.github.io", icon: "fab fa-github" }
+        ]
+    },
+    {
+        imgSrc: "asset/placeholder-advantaged-player-webapp.png",
+        imgAlt: "Advantaged Player Trainer Thumbnail",
+        iconClass: "fas fa-brain",
+        title: "Advantaged Player Trainer",
+        description: "A card counting brain training webapp designed to help users rapidly learn blackjack card counting skills.",
+        techTags: ["Web App", "Blackjack"],
+        links: [
+            { text: "View Demo", url: "https://advantagedplayer.github.io", icon: "fas fa-external-link-alt" },
+            { text: "View Repository", url: "https://github.com/advantagedplayer/advantagedplayer.github.io", icon: "fab fa-github" }
+        ]
+    },
+    {
+        imgSrc: "asset/woke_gpt_placeholder.png",
+        imgAlt: "WokeGPT Thumbnail",
+        iconClass: "fas fa-code-branch",
+        title: "WokeGPT",
+        description: "A satirical chatbot using Flowise and Mistral AI's Mixtral LLM.",
+        techTags: ["Flowise", "Mistral AI"],
+        links: [
+            { text: "View Demo", url: "https://wokegpt.github.io", icon: "fas fa-external-link-alt" },
+            { text: "View Repository", url: "https://github.com/wokegpt/wokegpt.github.io", icon: "fab fa-github" }
+        ]
+    },
+    {
+        imgSrc: "asset/astro_dash_placeholder.png",
+        imgAlt: "Astro Dash Thumbnail",
+        iconClass: "fas fa-gamepad",
+        title: "Astro Dash",
+        description: "A mobile game demo using Java and HTML, co-created with Sonnet 3.7.",
+        techTags: ["Java", "HTML"],
+        links: [
+            { text: "View Demo", url: "https://astrodashapp.github.io", icon: "fas fa-external-link-alt" },
+            { text: "View Repository", url: "https://github.com/astrodashapp/astrodashapp.github.io", icon: "fab fa-github" }
+        ]
+    }
 ];
 
-let data = {};
-
-const fileInput = document.getElementById('fileInput');
-fileInput.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const text = await file.text();
-    const cleaned = text.replace(/export const /g, '');
-    data = {};
-    eval(cleaned);
-    renderEditor();
-  }
-});
-
-function renderEditor() {
-  const container = document.getElementById('editor');
-  container.innerHTML = '';
-  for (const key in data) {
-    const section = document.createElement('section');
-    const sectionTitle = document.createElement('h2');
-    sectionTitle.contentEditable = true;
-    sectionTitle.innerText = key;
-    sectionTitle.addEventListener('input', () => {
-      const newKey = sectionTitle.innerText;
-      if (newKey !== key) {
-        data[newKey] = data[key];
-        delete data[key];
-        renderEditor();
-      }
-    });
-    section.appendChild(sectionTitle);
-
-    const addButton = document.createElement('button');
-    addButton.classList.add('add-btn');
-    addButton.innerText = 'Add New Item';
-    addButton.onclick = () => addItem(key);
-    section.appendChild(addButton);
-
-    const value = data[key];
-    if(Array.isArray(value)){
-      value.forEach((item, idx) => renderItem(section, key, idx, item));
-    } else if(typeof value==='object'){
-      for(const objKey in value){
-        const label = document.createElement('label');
-        label.innerText = objKey;
-        const input = document.createElement('input');
-        input.value = value[objKey];
-        input.addEventListener('input', e => value[objKey] = e.target.value);
-        section.appendChild(label);
-        section.appendChild(input);
-      }
+export const servicesData = [
+    {
+        iconClass: "fas fa-globe",
+        title: "Custom Web App Development",
+        description: "Building bespoke web applications and tools tailored to your specific needs, focusing on functionality and user experience."
+    },
+    {
+        iconClass: "fas fa-palette",
+        title: "Themed Interface Design",
+        description: "Creating unique visual styles and thematic interfaces for websites and web applications to capture a distinct feel."
+    },
+    {
+        iconClass: "fas fa-rocket",
+        title: "Rapid Prototyping (Web/App)",
+        description: "Quickly bringing your web or app vision to life through efficient, AI-accelerated prototyping."
+    },
+    {
+        iconClass: "fas fa-comments",
+        title: "AI Chatbot Integration",
+        description: "Developing and integrating intelligent chatbots using modern language models for engaging and dynamic interactions."
+    },
+    {
+        iconClass: "fas fa-keyboard",
+        title: "Prompt Engineering & Content",
+        description: "Designing advanced prompts for AI models to generate creative content and interactive scenarios."
+    },
+    {
+        iconClass: "fas fa-chalkboard",
+        title: "Educational Tool Development",
+        description: "Creating interactive web-based tools and generators designed to enhance learning and skill development."
+    },
+    {
+        iconClass: "fas fa-code",
+        title: "Unique Web Experiences",
+        description: "Crafting engaging and memorable interactive web content with a focus on creative expression and distinct personality."
     }
-    container.appendChild(section);
-  }
-}
+];
 
-function renderItem(section, sectionKey, idx, item){
-  const itemDiv = document.createElement('div');
-  itemDiv.classList.add('item');
-  const deleteBtn = document.createElement('button');
-  deleteBtn.classList.add('delete-btn');
-  deleteBtn.innerText = 'Delete';
-  deleteBtn.onclick = () => deleteItem(sectionKey, idx);
-  itemDiv.appendChild(deleteBtn);
-
-  for(const field in item){
-    const label = document.createElement('label');
-    label.innerText = field;
-    let input;
-    if(['description','title','imgAlt','imgSrc'].includes(field)){
-      input=document.createElement('textarea');
-    } else if(field==='techTags'){
-      input=document.createElement('input');
-    } else if(field==='iconClass'){
-      input=document.createElement('select');
-      faIcons.forEach(icon=>{
-        const option=document.createElement('option');
-        option.value=icon;
-        option.text=icon;
-        if(icon===item[field]) option.selected=true;
-        input.appendChild(option);
-      });
-    } else {
-      input=document.createElement('input');
+export const promptsData = [
+    {
+        iconClass: "fas fa-graduation-cap",
+        title: "Word Search Worksheet Generator",
+        description: "Generated by GPT, this prompt creates custom word search worksheets.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-book-open",
+        title: "Crossword Clue Writer Generator",
+        description: "A GPT-based prompt to automatically generate crossword puzzle clues.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-comments",
+        title: "RPGpt Generative Role Playing Prompt",
+        description: "A prompt that creates interactive role-playing scenarios.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-star",
+        title: "Interactive Mind Map Generator",
+        description: "A GPT-4 prompt to create interactive mind maps.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-book",
+        title: "Advanced Dictionary",
+        description: "A GPT prompt for an advanced dictionary.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-chalkboard-teacher",
+        title: "Esl Lesson Maker Printable",
+        description: "A GPT prompt for creating printable ESL lessons.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        iconClass: "fas fa-atlas",
+        title: "Encyclopedia Entry Generator",
+        description: "A GPT prompt for generating encyclopedia entries.",
+        links: [
+            { text: "View on PromptBase", url: "https://promptbase.com/profile/profprompt", icon: "fas fa-external-link-alt" }
+        ]
     }
-    input.value=Array.isArray(item[field])?item[field].join(', '):item[field];
-    input.addEventListener('input', e=>{
-      let value=e.target.value;
-      if(field==='techTags') value=value.split(',').map(t=>t.trim());
-      item[field]=value;
-      if(field==='imgSrc') imgPreview.src=value;
-      if(field==='iconClass') iconPreview.className=value;
-    });
-    itemDiv.appendChild(label);
-    itemDiv.appendChild(input);
+];
 
-    if(field==='imgSrc'){
-      var imgPreview=document.createElement('img');
-      imgPreview.src=item[field];
-      imgPreview.classList.add('preview-img');
-      itemDiv.appendChild(imgPreview);
+export const webDesignData = [
+     {
+        imgSrc: "asset/placeholder-podcast-producer-site.png",
+        imgAlt: "Personal Website Concept Thumbnail",
+        iconClass: "fas fa-laptop-code",
+        title: "Personal Website Concept",
+        description: "A design concept for a modern, professional online presence.",
+        techTags: ["Web Design", "Portfolio"],
+        links: [
+            { text: "View Demo", url: "#", icon: "fas fa-external-link-alt" }
+        ]
+    },
+    {
+        imgSrc: "asset/placeholder-andrew-watts-site.png",
+        imgAlt: "Portfolio Site Design Thumbnail",
+        iconClass: "fas fa-user-cog",
+        title: "Portfolio Site Design",
+        description: "The design concept for this very portfolio website, focused on clear presentation of projects and skills.",
+        techTags: ["Web Design", "Portfolio", "Current Site"],
+        links: [
+            { text: "View Repository", url: "https://github.com/ProfPrompt/websim-portfolio", icon: "fab fa-github" }
+        ]
+    },
+    {
+        imgSrc: "asset/placeholder-sports-marketplace-template.png",
+        imgAlt: "Marketplace Template Design Thumbnail",
+        iconClass: "fas fa-store",
+        title: "Marketplace Template",
+        description: "A template design for an online marketplace platform.",
+        techTags: ["Web Design", "Marketplace", "Template"],
+        links: [
+            { text: "View Demo", url: "#", icon: "fas fa-external-link-alt" }
+        ]
     }
-    if(field==='iconClass'){
-      var iconPreview=document.createElement('i');
-      iconPreview.className=item[field];
-      iconPreview.classList.add('icon-preview');
-      itemDiv.appendChild(iconPreview);
-    }
-    if(field==='links'){
-      item.links.forEach((linkObj, linkIdx)=>{
-        const linkDiv=document.createElement('div');
-        ['text','url','icon'].forEach(f=>{
-          const linkLabel=document.createElement('label');
-          linkLabel.innerText=f;
-          const linkInput=f==='icon'?document.createElement('select'):document.createElement('input');
-          if(f==='icon'){
-            faIcons.forEach(icon=>{
-              const option=document.createElement('option');
-              option.value=icon; option.text=icon;
-              if(icon===linkObj.icon) option.selected=true;
-              linkInput.appendChild(option);
-            });
-            linkInput.addEventListener('input', e=>linkObj.icon=e.target.value);
-          } else {
-            linkInput.value=linkObj[f];
-            linkInput.addEventListener('input', e=>linkObj[f]=e.target.value);
-          }
-          linkDiv.appendChild(linkLabel);
-          linkDiv.appendChild(linkInput);
-        });
-        itemDiv.appendChild(linkDiv);
-      });
-      const addLinkBtn=document.createElement('button');
-      addLinkBtn.classList.add('add-btn');
-      addLinkBtn.innerText='Add Link';
-      addLinkBtn.onclick=()=>{item.links.push({text:'',url:'',icon:'fas fa-external-link-alt'}); renderEditor();};
-      itemDiv.appendChild(addLinkBtn);
-    }
-  }
-  section.appendChild(itemDiv);
-}
-
-function addItem(section){
-  if(!Array.isArray(data[section])) return;
-  const sample={};
-  if(data[section].length>0){
-    const first=data[section][0];
-    for(const field in first) sample[field]=Array.isArray(first[field])?[]:'';
-  }
-  data[section].push(sample);
-  renderEditor();
-}
-
-function deleteItem(section, idx){
-  if(Array.isArray(data[section])) data[section].splice(idx,1);
-  renderEditor();
-}
-
-function exportData(){
-  let output='';
-  for(const key in data){
-    output+=`export const ${key} = ${JSON.stringify(data[key], null, 4)};
-
-`;
-  }
-  const blob=new Blob([output],{type:'text/javascript'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download='data.js';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-</script>
-</body>
-</html>
+];
