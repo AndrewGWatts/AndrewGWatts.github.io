@@ -1,6 +1,6 @@
 export const webAppsData = [
     {
-        imgSrc: "asset /placeholder-loading-now.png",
+        imgSrc: "asset/placeholder-loading-now.png",
         imgAlt: "Loading Now Thumbnail",
         iconClass: "fas fa-clock",
         title: "Loading Now...",
@@ -10,7 +10,7 @@ export const webAppsData = [
         demoLink: "https://loadingnowapp.github.io"
     },
     {
-        imgSrc: "asset /placeholder-advantaged-player-webapp.png",
+        imgSrc: "asset/placeholder-advantaged-player-webapp.png",
         imgAlt: "Advantaged Player Trainer Thumbnail",
         iconClass: "fas fa-brain",
         title: "Advantaged Player Trainer",
@@ -20,7 +20,7 @@ export const webAppsData = [
         demoLink: "https://advantagedplayer.github.io"
     },
     {
-        imgSrc: "asset woke_gpt_placeholder.png",
+        imgSrc: "asset/woke_gpt_placeholder.png",
         imgAlt: "WokeGPT Thumbnail",
         iconClass: "fas fa-code-branch",
         title: "WokeGPT",
@@ -30,7 +30,7 @@ export const webAppsData = [
         demoLink: "https://wokegpt.github.io"
     },
     {
-        imgSrc: "asset astro_dash_placeholder.png",
+        imgSrc: "asset/astro_dash_placeholder.png",
         imgAlt: "Astro Dash Thumbnail",
         iconClass: "fas fa-gamepad",
         title: "Astro Dash",
@@ -126,7 +126,7 @@ export const promptsData = [
 
 export const webDesignData = [
      {
-        imgSrc: "asset placeholder-podcast-producer-site.png",
+        imgSrc: "asset/placeholder-podcast-producer-site.png",
         imgAlt: "Personal Website Concept Thumbnail",
         iconClass: "fas fa-laptop-code",
         title: "Personal Website Concept",
@@ -136,7 +136,7 @@ export const webDesignData = [
         demoLink: "#" // Placeholder
     },
     {
-        imgSrc: "asset placeholder-andrew-watts-site.png",
+        imgSrc: "asset/placeholder-andrew-watts-site.png",
         imgAlt: "Portfolio Site Design Thumbnail",
         iconClass: "fas fa-user-cog",
         title: "Portfolio Site Design",
@@ -146,7 +146,7 @@ export const webDesignData = [
         demoLink: "#" // This is the current site
     },
     {
-        imgSrc: "asset placeholder-sports-marketplace-template.png",
+        imgSrc: "asset/placeholder-sports-marketplace-template.png",
         imgAlt: "Marketplace Template Design Thumbnail",
         iconClass: "fas fa-store",
         title: "Marketplace Template",
