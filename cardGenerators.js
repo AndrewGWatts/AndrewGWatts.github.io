@@ -4,11 +4,11 @@ import { webAppsData, servicesData, promptsData, webDesignData } from "./data.js
 export function createProjectCard(project) {
     const techTagsHtml = project.techTags.map(tag => `<span class="tech-tag">${tag}</span>`).join('');
 
-    const linksHtml = project.links.map(link => `
-        <a href="${link.url}" class="repo-link" target="_blank" rel="noopener noreferrer">
-            <i class="${link.icon}"></i> ${link.text}
-        </a>
-    `).join('');
+    // Decide which links to show based on availability
+    const demoLinkHtml = project.demoLink && project.demoLink !== '#' ?
+        `<a href="${project.demoLink}" class="repo-link"><i class="fas fa-external-link-alt"></i> View Demo</a>` : '';
+    const repoLinkHtml = project.repoLink && project.repoLink !== '#' ?
+        `<a href="${project.repoLink}" class="repo-link"><i class="fab fa-github"></i> View Repository</a>` : '';
 
     return `
         <div class="project-card carousel-item">
@@ -20,7 +20,8 @@ export function createProjectCard(project) {
             <p>${project.description}</p>
             <div class="project-footer">
                 ${techTagsHtml}
-                ${linksHtml}
+                ${repoLinkHtml}
+                ${demoLinkHtml}
             </div>
         </div>
     `;
@@ -43,12 +44,6 @@ export function createServiceCard(service) {
 
 // Function to generate HTML for a Prompt card
 export function createPromptCard(prompt) {
-    const linksHtml = prompt.links.map(link => `
-        <a href="${link.url}" class="repo-link" target="_blank" rel="noopener noreferrer">
-            <i class="${link.icon}"></i> ${link.text}
-        </a>
-    `).join('');
-
     return `
         <div class="project-card">
             <div class="project-header">
@@ -57,9 +52,10 @@ export function createPromptCard(prompt) {
             </div>
             <p>${prompt.description}</p>
             <div class="project-footer">
-                ${linksHtml}
+                <a href="${prompt.link}" class="repo-link">
+                    <i class="fas fa-external-link-alt"></i> View on PromptBase
+                </a>
             </div>
         </div>
     `;
 }
-

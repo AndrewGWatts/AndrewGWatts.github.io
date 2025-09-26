@@ -8,7 +8,7 @@
 
 /* Styles now apply directly to h3 and p within the grid */
 #skills .tools-grid h3 {
-    color: var(--text-color-primary); /* Heading color */
+    color: #f0f6fc; /* Heading color */
     margin: 0; /* Remove default margins */
     font-size: 1rem;
     display: flex; /* Added flex for icon alignment */
@@ -18,13 +18,13 @@
 }
 
 #skills .tools-grid h3 i {
-    color: var(--link-color); /* Color the icons */
+    color: #58a6ff; /* Color the icons */
     font-size: 1.1rem; /* Slightly increase icon size */
 }
 
 #skills .tools-grid p {
     margin: 0 0 1rem 0; /* Add bottom margin to paragraphs */
-    color: var(--text-color-primary);
+    color: #c9d1d9;
     font-size: 0.95rem;
     grid-column: span 1; /* Ensure paragraphs span one column */
 }

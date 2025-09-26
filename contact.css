@@ -1,5 +1,5 @@
 #contact a {
-    color: var(--link-color);
+    color: #58a6ff;
     text-decoration: none;
 }
 
@@ -18,7 +18,7 @@
 
 #contact .contact-info p {
     margin: 0.5rem 0;
-    color: var(--text-color-primary);
+    color: #c9d1d9;
 }
 
 #contact .contact-info i {
@@ -26,6 +26,6 @@
     display: inline-block;
     text-align: center;
     margin-right: 0.5rem;
-    color: var(--link-color);
+    color: #58a6ff;
 }
 

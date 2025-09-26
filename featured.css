@@ -54,14 +54,14 @@
 .indicator {
     width: 10px;
     height: 10px;
-    background-color: var(--indicator-color);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .indicator.active {
-    background-color: var(--link-color);
+    background-color: #58a6ff;
     transform: scale(1.2);
 }
 /* --- End Carousel Styles --- */
