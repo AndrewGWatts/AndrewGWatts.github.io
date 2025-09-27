@@ -19,16 +19,7 @@ export const webAppsData = [
         repoLink: "https://github.com/advantagedplayer/advantagedplayer.github.io",
         demoLink: "https://advantagedplayer.github.io"
     },
-    {
-        imgSrc: "asset/woke_gpt_placeholder.png",
-        imgAlt: "WokeGPT Thumbnail",
-        iconClass: "fas fa-code-branch",
-        title: "WokeGPT",
-        description: "A satirical chatbot using Flowise and Mistral AI's Mixtral LLM.",
-        techTags: ["Flowise", "Mistral AI"],
-        repoLink: "https://github.com/wokegpt/wokegpt.github.io",
-        demoLink: "https://wokegpt.github.io"
-    },
+ 
     {
         imgSrc: "asset/astro_dash_placeholder.png",
         imgAlt: "Astro Dash Thumbnail",
