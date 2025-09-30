@@ -2,7 +2,6 @@
 .carousel-container {
     position: relative;
     width: 100%;
-    overflow: hidden;
     margin-bottom: 2rem;
     touch-action: pan-y;
     cursor: grab;
