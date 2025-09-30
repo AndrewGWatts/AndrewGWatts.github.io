@@ -117,7 +117,7 @@ export const promptsData = [
 
 export const webDesignData = [
      {
-    imgSrc: "assets/podcast-producer-site.png",
+    imgSrc: "asset/podcast-producer-site.png",
     imgAlt: "Podcast Producer Personal Website Thumbnail",
     iconClass: "fas fa-microphone-alt",
     title: "Podcast Producer Profile Website",
@@ -127,7 +127,7 @@ export const webDesignData = [
     demoLink: "https://lindsaylafreniere.github.io"
   },
   {
-    imgSrc: "assets/developer-portfolio-site.png",
+    imgSrc: "asset/developer-portfolio-site.png",
     imgAlt: "Developer Portfolio Website Thumbnail",
     iconClass: "fas fa-code",
     title: "Developer Portfolio Website",
