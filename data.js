@@ -125,17 +125,17 @@ export const webDesignData = [
     techTags: ["Web Design", "Portfolio", "Personal Branding"],
     repoLink: "https://github.com/lindsaylafreniere/lindsaylafreniere.github.io",
     demoLink: "https://lindsaylafreniere.github.io"
-  },
-  {
-    imgSrc: "asset/developer-portfolio-site.png",
-    imgAlt: "Developer Portfolio Website Thumbnail",
-    iconClass: "fas fa-code",
-    title: "Developer Portfolio Website",
-    description: "A modern portfolio template for developers to highlight projects, technical skills, and services in a clean and professional layout.",
-    techTags: ["Web Design", "Developer Portfolio", "Responsive Design"],
-    repoLink: "https://github.com/andrewgwatts/andrewgwatts.github.io",
-    demoLink: "https://andrewgwatts.github.io"
-  },
+	},
+	{
+		imgSrc: "asset/developer-portfolio-site.png",
+		imgAlt: "Developer Portfolio Website Thumbnail",
+		iconClass: "fas fa-code",
+		title: "Developer Portfolio Website",
+		description: "A modern portfolio template for developers to highlight projects, technical skills, and services 	in a clean and professional layout.",
+		techTags: ["Web Design", "Developer Portfolio", "Responsive Design"],
+		repoLink: "https://github.com/andrewgwatts/andrewgwatts.github.io",
+		demoLink: "https://andrewgwatts.github.io"
+	},
     {
         imgSrc: "asset/placeholder-sports-marketplace-template.png",
         imgAlt: "Marketplace Template Design Thumbnail",
