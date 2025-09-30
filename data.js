@@ -117,25 +117,25 @@ export const promptsData = [
 
 export const webDesignData = [
      {
-        imgSrc: "asset/placeholder-podcast-producer-site.png",
-        imgAlt: "Personal Website Concept Thumbnail",
-        iconClass: "fas fa-laptop-code",
-        title: "Personal Website Concept",
-        description: "A design concept for a modern, professional online presence.",
-        techTags: ["Web Design", "Portfolio"],
-        repoLink: "#", // Placeholder
-        demoLink: "#" // Placeholder
-    },
-    {
-        imgSrc: "asset/placeholder-andrew-watts-site.png",
-        imgAlt: "Portfolio Site Design Thumbnail",
-        iconClass: "fas fa-user-cog",
-        title: "Portfolio Site Design",
-        description: "The design concept for this very portfolio website, focused on clear presentation of projects and skills.",
-        techTags: ["Web Design", "Portfolio", "Current Site"],
-        repoLink: "https://github.com/ProfPrompt/websim-portfolio", // Placeholder
-        demoLink: "#" // This is the current site
-    },
+    imgSrc: "assets/podcast-producer-site.png",
+    imgAlt: "Podcast Producer Personal Website Thumbnail",
+    iconClass: "fas fa-microphone-alt",
+    title: "Podcast Producer Profile Website",
+    description: "A sleek personal website template designed for podcast producers to showcase their work, episodes, and services.",
+    techTags: ["Web Design", "Portfolio", "Personal Branding"],
+    repoLink: "https://github.com/lindsaylafreniere/lindsaylafreniere.github.io",
+    demoLink: "https://lindsaylafreniere.github.io"
+  },
+  {
+    imgSrc: "assets/developer-portfolio-site.png",
+    imgAlt: "Developer Portfolio Website Thumbnail",
+    iconClass: "fas fa-code",
+    title: "Developer Portfolio Website",
+    description: "A modern portfolio template for developers to highlight projects, technical skills, and services in a clean and professional layout.",
+    techTags: ["Web Design", "Developer Portfolio", "Responsive Design"],
+    repoLink: "https://github.com/andrewgwatts/andrewgwatts.github.io",
+    demoLink: "https://andrewgwatts.github.io"
+  },
     {
         imgSrc: "asset/placeholder-sports-marketplace-template.png",
         imgAlt: "Marketplace Template Design Thumbnail",
