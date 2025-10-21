@@ -4,7 +4,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     const carouselContainer = document.querySelector(`#${containerId}`);
     if (!carouselContainer) {
         console.error(`Carousel container not found: #${containerId}`);
-        return null; // Return null if container not found
+        return null;
     }
 
     const carouselTrack = carouselContainer.querySelector('.projects-grid');
@@ -12,42 +12,44 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     const nextBtn = carouselContainer.querySelector('.carousel-nav.next-btn');
     const indicatorsContainer = carouselContainer.querySelector('.carousel-indicators');
 
-    // Allow carousel to function without nav/indicators if not present in HTML
-    // (though they are required by the current index.html structure)
     const hasNav = prevBtn && nextBtn && indicatorsContainer;
+
     if (!carouselTrack) {
-         console.error(`Carousel track missing in container: #${containerId}`);
-         return null;
+        console.error(`Carousel track missing in container: #${containerId}`);
+        return null;
     }
 
     // Populate the carousel
     carouselTrack.innerHTML = data.map(cardGeneratorFunc).join('');
     const carouselItems = carouselTrack.querySelectorAll('.carousel-item');
     const totalItems = carouselItems.length;
+
     let currentIndex = 0;
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
     const swipeThreshold = 50;
     let autoScrollTimer;
+    let isPaused = false;
 
     if (totalItems === 0) {
-        if(hasNav) {
+        if (hasNav) {
             prevBtn.style.display = 'none';
             nextBtn.style.display = 'none';
             indicatorsContainer.style.display = 'none';
         }
-        return null; // No items to carousel
-    } else {
-        if(hasNav) {
-            prevBtn.style.display = 'flex'; // Assuming display flex for centering
-            nextBtn.style.display = 'flex';
-            indicatorsContainer.style.display = 'flex';
-        }
+        return null;
+    } else if (hasNav) {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+        indicatorsContainer.style.display = 'flex';
     }
 
+    // --- Auto-scroll functions ---
     function startAutoScroll() {
-        if (autoScrollInterval > 0) {
-            stopAutoScroll(); // Clear any existing timer
+        if (autoScrollInterval > 0 && !isPaused) {
+            stopAutoScroll();
             autoScrollTimer = setInterval(showNextItem, autoScrollInterval);
         }
     }
@@ -56,6 +58,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         clearInterval(autoScrollTimer);
     }
 
+    // --- Carousel helpers ---
     function getItemsPerView() {
         return isMobile() ? 1 : 3;
     }
@@ -64,139 +67,131 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const itemsPerView = getItemsPerView();
         const totalGroups = Math.ceil(totalItems / itemsPerView);
 
-        // Recalculate indicators based on groups
+        // Update indicators
         if (indicatorsContainer) {
-            indicatorsContainer.innerHTML = ''; // Clear existing indicators
+            indicatorsContainer.innerHTML = '';
             for (let i = 0; i < totalGroups; i++) {
                 const indicator = document.createElement('div');
                 indicator.classList.add('indicator');
                 const currentGroupIndex = Math.floor(currentIndex / itemsPerView);
-                if (i === currentGroupIndex) {
-                     indicator.classList.add('active');
-                }
+                if (i === currentGroupIndex) indicator.classList.add('active');
+
                 const groupStartIndex = i * itemsPerView;
                 indicator.addEventListener('click', () => {
                     currentIndex = groupStartIndex;
                     updateCarousel();
-                    startAutoScroll(); // Restart auto-scroll on manual interaction
+                    startAutoScroll();
                 });
+
                 indicatorsContainer.appendChild(indicator);
             }
         }
 
-        // Calculate the offset based on the current item's position
+        // Calculate offset
         if (carouselItems.length === 0) {
-             carouselTrack.style.transform = `translateX(0)`;
-             return; // Should be caught earlier, but safety check
-         }
-        // Ensure currentIndex is within bounds, especially after resize
-        if (currentIndex >= totalItems) {
-             currentIndex = 0; // Reset if out of bounds
-        }
-         // Adjust currentIndex if it lands in a partial group that's now beyond the end
-        const maxIndex = Math.max(0, totalItems - itemsPerView);
-        if (currentIndex > maxIndex && totalItems > 0) {
-            currentIndex = maxIndex;
+            carouselTrack.style.transform = `translateX(0)`;
+            return;
         }
 
+        if (currentIndex >= totalItems) currentIndex = 0;
+
+        const maxIndex = Math.max(0, totalItems - itemsPerView);
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+
         const firstVisibleItem = carouselItems[currentIndex];
-        // Ensure firstVisibleItem exists before accessing offsetLeft
         if (firstVisibleItem) {
-             const itemWidth = firstVisibleItem.offsetWidth;
-             const gap = parseFloat(getComputedStyle(carouselTrack).gap);
-             const offset = -(currentIndex * (itemWidth + gap));
-             carouselTrack.style.transform = `translateX(${offset}px)`;
-        } else {
-             // Fallback if somehow the item is not found (shouldn't happen)
-             carouselTrack.style.transform = `translateX(0)`;
+            const itemWidth = firstVisibleItem.offsetWidth;
+            const gap = parseFloat(getComputedStyle(carouselTrack).gap) || 0;
+            const offset = -(currentIndex * (itemWidth + gap));
+            carouselTrack.style.transform = `translateX(${offset}px)`;
         }
     }
 
+    // --- Navigation functions ---
     function showNextItem() {
         const itemsPerView = getItemsPerView();
         const nextIndex = currentIndex + itemsPerView;
-
-        if (nextIndex < totalItems) {
-            currentIndex = nextIndex;
-        } else {
-            currentIndex = 0; // Wrap around
-        }
+        currentIndex = nextIndex < totalItems ? nextIndex : 0;
         updateCarousel();
     }
 
     function showPrevItem() {
         const itemsPerView = getItemsPerView();
         let prevIndex = currentIndex - itemsPerView;
-
-        if (prevIndex >= 0) {
-            currentIndex = prevIndex;
-        } else {
-             // Wrap around to the start of the last group
-             const totalGroups = Math.ceil(totalItems / itemsPerView);
-             currentIndex = (totalGroups - 1) * itemsPerView;
-             // Ensure we don't go past the end if the last group is partial
+        if (prevIndex >= 0) currentIndex = prevIndex;
+        else {
+            const totalGroups = Math.ceil(totalItems / itemsPerView);
+            currentIndex = (totalGroups - 1) * itemsPerView;
             const maxIndex = Math.max(0, totalItems - itemsPerView);
-             if (currentIndex > maxIndex && totalItems > 0) {
-                 currentIndex = maxIndex;
-             } else if (totalItems > 0 && currentIndex < 0) {
-                 // Should not happen with the above logic, but as a fallback
-                 currentIndex = 0;
-             } else if (totalItems === 0) {
-                 currentIndex = 0;
-             }
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
         }
         updateCarousel();
     }
 
-     function carouselTouchStart(e) {
-         touchStartX = e.touches[0].clientX;
-         stopAutoScroll(); // Stop auto-scroll on touch start
-     }
+    // --- Touch / swipe handlers ---
+    function carouselTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        stopAutoScroll();
+    }
 
-     function carouselTouchMove(e) {
-         touchEndX = e.touches[0].clientX;
-         const diff = touchStartX - touchEndX;
-          // Prevent vertical scrolling if horizontal swipe is significant
-         if (Math.abs(diff) > Math.abs(e.touches[0].clientY - (e.changedTouches[0]?.clientY || e.touches[0].clientY))) {
-             e.preventDefault();
-         }
-     }
+    function carouselTouchMove(e) {
+        touchEndX = e.touches[0].clientX;
+        touchEndY = e.touches[0].clientY;
 
-     function carouselTouchEnd() {
-         const diff = touchStartX - touchEndX;
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
 
-         if (diff > swipeThreshold) {
-             showNextItem();
-         } else if (diff < -swipeThreshold) {
-             // For swiping right, we show the previous item if implementing that way
-             // Currently, the request implies clicking/swiping leads to NEXT.
-             // If previous swipe is desired, uncomment and implement showPrevItem properly.
-             showPrevItem(); // Changed to call showPrevItem for right swipe
-         }
+        // Only prevent vertical scroll for significant horizontal swipe
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
+            e.preventDefault();
+        }
+    }
 
-         touchStartX = 0;
-         touchEndX = 0;
-         startAutoScroll(); // Restart auto-scroll after touch ends
-     }
+    function carouselTouchEnd() {
+        const diffX = touchStartX - touchEndX;
 
-    // Initial setup
+        if (diffX > swipeThreshold) showNextItem();
+        else if (diffX < -swipeThreshold) showPrevItem();
+
+        touchStartX = touchEndX = touchStartY = touchEndY = 0;
+
+        if (!isPaused) startAutoScroll();
+    }
+
+    // --- Click to pause / highlight ---
+    carouselItems.forEach(item => {
+        item.addEventListener('click', () => {
+            isPaused = !isPaused;
+            if (isPaused) stopAutoScroll();
+            else startAutoScroll();
+
+            // Highlight the clicked card
+            carouselItems.forEach(i => i.classList.remove('highlight'));
+            if (isPaused) item.classList.add('highlight');
+        });
+    });
+
+    // --- Attach event listeners ---
     if (hasNav) {
         prevBtn.addEventListener('click', showPrevItem);
         nextBtn.addEventListener('click', showNextItem);
     }
+
     carouselContainer.addEventListener('touchstart', carouselTouchStart);
-    carouselContainer.addEventListener('touchmove', carouselTouchMove);
+    carouselContainer.addEventListener('touchmove', carouselTouchMove, { passive: false });
     carouselContainer.addEventListener('touchend', carouselTouchEnd);
 
-    updateCarousel(); // Initial render
-    startAutoScroll(); // Start auto-scroll on initial load
+    // --- Initial render ---
+    updateCarousel();
+    startAutoScroll();
 
-    // Return an object with a resize handler method
+    // --- Return resize handler ---
     return {
         handleResize: () => {
-            currentIndex = 0; // Reset index on resize
+            currentIndex = 0;
             updateCarousel();
-            startAutoScroll(); // Restart auto-scroll on resize
+            startAutoScroll();
         }
     };
 }
