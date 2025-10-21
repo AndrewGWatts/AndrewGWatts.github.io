@@ -92,6 +92,13 @@
     }
 }
 
+	.carousel-item.highlight {
+		border: 2px solid #f39c12;
+		transform: scale(1.05);
+		transition: transform 0.3s, border 0.3s;
+	}
+
+
 /* Desktop Styles (min-width 769px) */
 @media (min-width: 769px) {
     #web-apps .project-card.carousel-item,
