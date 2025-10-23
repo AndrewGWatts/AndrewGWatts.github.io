@@ -116,6 +116,9 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         touchStartY = e.touches[0].clientY;
         isSwiping = false; // Reset swipe flag on touch start
         stopAutoScroll(); // Always stop auto-scroll on touch
+        
+        // Prevent default behavior to avoid scrolling
+        e.preventDefault();
     }
 
     function carouselTouchMove(e) {
@@ -129,6 +132,9 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
             e.preventDefault();
             isSwiping = true; // Set swipe flag when swiping occurs
+        } else if (Math.abs(diffY) > swipeThreshold && Math.abs(diffY) > Math.abs(diffX)) {
+            // If vertical movement is significant, prevent scrolling
+            e.preventDefault();
         }
     }
 
@@ -188,6 +194,16 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     carouselContainer.addEventListener('touchstart', carouselTouchStart);
     carouselContainer.addEventListener('touchmove', carouselTouchMove, { passive: false });
     carouselContainer.addEventListener('touchend', carouselTouchEnd);
+    carouselContainer.addEventListener('touchcancel', () => {
+        // Reset touch coordinates and swipe state on cancel
+        touchStartX = touchStartY = touchEndX = touchEndY = 0;
+        isSwiping = false;
+        
+        // Restart auto-scroll if not paused
+        if (!isPaused) {
+            startAutoScroll();
+        }
+    });
 
     window.addEventListener('resize', () => updateCarousel());
 
