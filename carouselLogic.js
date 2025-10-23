@@ -154,30 +154,8 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         }
     }
 
-    // --- Click to pause/highlight (no navigation) ---
-    carouselItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // Prevent any default behavior that might cause scrolling
-            e.preventDefault();
-            
-            // Toggle pause state
-            isPaused = !isPaused;
-            
-            if (isPaused) {
-                // When paused, stop auto-scroll and highlight the clicked item
-                stopAutoScroll();
-                carouselItems.forEach(i => i.classList.remove('highlight'));
-                item.classList.add('highlight');
-            } else {
-                // When unpaused, remove highlight and restart auto-scroll
-                carouselItems.forEach(i => i.classList.remove('highlight'));
-                startAutoScroll();
-            }
-            
-            // Stop propagation to prevent any parent handlers from executing
-            e.stopPropagation();
-        });
-    });
+    // --- No click handling for carousel items ---
+    // Clicking carousel items does nothing
 
     // --- Event listeners ---
     if (hasNav) {

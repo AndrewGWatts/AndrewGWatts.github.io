@@ -92,10 +92,11 @@
     }
 }
 
+	/* Highlight styling removed as click handling is disabled */
 	.carousel-item.highlight {
-		border: 2px solid #f39c12;
+		/* border: 2px solid #f39c12;
 		transform: scale(1.05);
-		transition: transform 0.3s, border 0.3s;
+		transition: transform 0.3s, border 0.3s; */
 	}
 
 
