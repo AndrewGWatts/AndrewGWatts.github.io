@@ -62,6 +62,9 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     }
 
     function updateCarousel() {
+        // Save current scroll position to prevent unwanted scrolling
+        const savedScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
         setCardWidths();
         updateIndicators();
         const perView = itemsPerView();
@@ -75,6 +78,11 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const gap = parseFloat(getComputedStyle(carouselTrack).gap) || 0;
         const offset = -(currentIndex * (itemWidth + gap));
         carouselTrack.style.transform = `translateX(${offset}px)`;
+        
+        // Restore scroll position after update
+        if (savedScrollTop !== (window.pageYOffset || document.documentElement.scrollTop)) {
+            window.scrollTo(0, savedScrollTop);
+        }
     }
 
     // --- Navigation (only for swipe/nav buttons) ---
