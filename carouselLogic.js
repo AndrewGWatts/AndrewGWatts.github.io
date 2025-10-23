@@ -154,8 +154,34 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         }
     }
 
-    // --- No click handling for carousel items ---
-    // Clicking carousel items does nothing
+    // --- Click to center carousel on mobile ---
+    carouselItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Only center on mobile devices
+            if (isMobile()) {
+                // Prevent any default behavior
+                e.preventDefault();
+                
+                // Get the carousel container's position
+                const rect = carouselContainer.getBoundingClientRect();
+                
+                // Calculate the offset to center the carousel vertically
+                const offsetTop = rect.top + window.pageYOffset;
+                const windowHeight = window.innerHeight;
+                const carouselHeight = rect.height;
+                
+                // Scroll to center the carousel
+                const scrollToPosition = offsetTop - (windowHeight / 2) + (carouselHeight / 2);
+                window.scrollTo({
+                    top: scrollToPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Stop propagation to prevent any parent handlers from executing
+                e.stopPropagation();
+            }
+        });
+    });
 
     // --- Event listeners ---
     if (hasNav) {
