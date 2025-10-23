@@ -115,7 +115,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isSwiping = false; // Reset swipe flag on touch start
-        stopAutoScroll(); // Always stop auto-scroll on touch
+        stopAutoScroll();
     }
 
     function carouselTouchMove(e) {
@@ -125,7 +125,6 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const diffX = touchStartX - touchEndX;
         const diffY = touchStartY - touchEndY;
 
-        // If horizontal movement is significant and greater than vertical movement, it's a swipe
         if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
             e.preventDefault();
             isSwiping = true; // Set swipe flag when swiping occurs
@@ -134,28 +133,37 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
 
     function carouselTouchEnd() {
         const diffX = touchStartX - touchEndX;
-        
-        // Only navigate if it's a confirmed swipe
-        if (isSwiping) {
-            if (diffX > swipeThreshold) {
-                showNextItem();
-            } else if (diffX < -swipeThreshold) {
-                showPrevItem();
-            }
+        if (diffX > swipeThreshold) showNextItem();
+        else if (diffX < -swipeThreshold) showPrevItem();
+        else if (!isSwiping) {
+            // If no significant swipe occurred, it was likely a tap
+            // The click handler will handle the highlighting, so we don't do anything here
         }
+<<<<<<< HEAD
         // If it's not a swipe, we do nothing here - no navigation on tap
+=======
+>>>>>>> parent of 833216e (Update carouselLogic.js)
 
-        // Reset touch coordinates
         touchStartX = touchStartY = touchEndX = touchEndY = 0;
+
+        if (!isPaused) startAutoScroll();
         
+<<<<<<< HEAD
         // Restart auto-scroll if not paused (but only if it wasn't a swipe)
         if (!isPaused && !isSwiping) {
             startAutoScroll();
         }
+=======
+        // Reset the swipe flag after a short delay to allow click handler to check it
+        setTimeout(() => {
+            isSwiping = false;
+        }, 100);
+>>>>>>> parent of 833216e (Update carouselLogic.js)
     }
 
     // --- Click to pause/highlight (no navigation) ---
     carouselItems.forEach(item => {
+<<<<<<< HEAD
         item.addEventListener('click', (e) => {
             // Prevent any default behavior that might cause navigation
             e.preventDefault();
@@ -166,12 +174,17 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
             if (isPaused) {
                 // When paused, stop auto-scroll and highlight the clicked item
                 stopAutoScroll();
+=======
+        item.addEventListener('click', () => {
+            // Only execute click logic if we're not in the middle of a swipe
+            if (!isSwiping) {
+                isPaused = !isPaused;
+                if (isPaused) stopAutoScroll();
+                else startAutoScroll();
+
+>>>>>>> parent of 833216e (Update carouselLogic.js)
                 carouselItems.forEach(i => i.classList.remove('highlight'));
-                item.classList.add('highlight');
-            } else {
-                // When unpaused, remove highlight and restart auto-scroll
-                carouselItems.forEach(i => i.classList.remove('highlight'));
-                startAutoScroll();
+                if (isPaused) item.classList.add('highlight');
             }
             
             // Stop propagation to prevent any parent handlers from executing
@@ -194,7 +207,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     // --- Initial setup ---
     carouselTrack.style.transition = 'transform 0.5s ease'; // smooth sliding
     updateCarousel();
-    startAutoScroll(); // Start auto-scroll only once at initialization
+    startAutoScroll();
 
     return {
         handleResize: () => updateCarousel()
