@@ -115,7 +115,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isSwiping = false; // Reset swipe flag on touch start
-        stopAutoScroll();
+        stopAutoScroll(); // Always stop auto-scroll on touch
     }
 
     function carouselTouchMove(e) {
@@ -125,6 +125,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const diffX = touchStartX - touchEndX;
         const diffY = touchStartY - touchEndY;
 
+        // If horizontal movement is significant and greater than vertical movement, it's a swipe
         if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
             e.preventDefault();
             isSwiping = true; // Set swipe flag when swiping occurs
@@ -133,34 +134,44 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
 
     function carouselTouchEnd() {
         const diffX = touchStartX - touchEndX;
-        if (diffX > swipeThreshold) showNextItem();
-        else if (diffX < -swipeThreshold) showPrevItem();
-        else if (!isSwiping) {
-            // If no significant swipe occurred, it was likely a tap
-            // The click handler will handle the highlighting, so we don't do anything here
-        }
-
-        touchStartX = touchStartY = touchEndX = touchEndY = 0;
-
-        if (!isPaused) startAutoScroll();
         
-        // Reset the swipe flag after a short delay to allow click handler to check it
-        setTimeout(() => {
-            isSwiping = false;
-        }, 100);
+        // Only navigate if it's a confirmed swipe
+        if (isSwiping) {
+            if (diffX > swipeThreshold) {
+                showNextItem();
+            } else if (diffX < -swipeThreshold) {
+                showPrevItem();
+            }
+        }
+        // If it's not a swipe, we do nothing here - the click handler will manage highlighting
+
+        // Reset touch coordinates
+        touchStartX = touchStartY = touchEndX = touchEndY = 0;
+        
+        // Restart auto-scroll if not paused (but only if it wasn't a swipe)
+        if (!isPaused && !isSwiping) {
+            startAutoScroll();
+        } else if (isPaused) {
+            // If paused, we still need to restart the timer when not swiping
+            startAutoScroll();
+        }
     }
 
     // --- Click to pause/highlight ---
     carouselItems.forEach(item => {
         item.addEventListener('click', () => {
-            // Only execute click logic if we're not in the middle of a swipe
-            if (!isSwiping) {
-                isPaused = !isPaused;
-                if (isPaused) stopAutoScroll();
-                else startAutoScroll();
-
+            // Toggle pause state
+            isPaused = !isPaused;
+            
+            if (isPaused) {
+                // When paused, stop auto-scroll and highlight the clicked item
+                stopAutoScroll();
                 carouselItems.forEach(i => i.classList.remove('highlight'));
-                if (isPaused) item.classList.add('highlight');
+                item.classList.add('highlight');
+            } else {
+                // When unpaused, remove highlight and restart auto-scroll
+                carouselItems.forEach(i => i.classList.remove('highlight'));
+                startAutoScroll();
             }
         });
     });
@@ -180,7 +191,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     // --- Initial setup ---
     carouselTrack.style.transition = 'transform 0.5s ease'; // smooth sliding
     updateCarousel();
-    startAutoScroll();
+    startAutoScroll(); // Start auto-scroll only once at initialization
 
     return {
         handleResize: () => updateCarousel()
