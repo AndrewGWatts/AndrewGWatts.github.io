@@ -77,7 +77,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         carouselTrack.style.transform = `translateX(${offset}px)`;
     }
 
-    // --- Navigation ---
+    // --- Navigation (only for swipe/nav buttons) ---
     function showNextItem() {
         const perView = itemsPerView();
         const nextIndex = currentIndex + perView;
@@ -110,7 +110,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         clearInterval(autoScrollTimer);
     }
 
-    // --- Touch for mobile ---
+    // --- Touch for mobile (swipe only for navigation) ---
     function carouselTouchStart(e) {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
@@ -143,7 +143,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
                 showPrevItem();
             }
         }
-        // If it's not a swipe, we do nothing here - the click handler will manage highlighting
+        // If it's not a swipe, we do nothing here - no navigation on tap
 
         // Reset touch coordinates
         touchStartX = touchStartY = touchEndX = touchEndY = 0;
@@ -151,15 +151,15 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         // Restart auto-scroll if not paused (but only if it wasn't a swipe)
         if (!isPaused && !isSwiping) {
             startAutoScroll();
-        } else if (isPaused) {
-            // If paused, we still need to restart the timer when not swiping
-            startAutoScroll();
         }
     }
 
-    // --- Click to pause/highlight ---
+    // --- Click to pause/highlight (no navigation) ---
     carouselItems.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
+            // Prevent any default behavior that might cause navigation
+            e.preventDefault();
+            
             // Toggle pause state
             isPaused = !isPaused;
             
@@ -173,6 +173,9 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
                 carouselItems.forEach(i => i.classList.remove('highlight'));
                 startAutoScroll();
             }
+            
+            // Stop propagation to prevent any parent handlers from executing
+            e.stopPropagation();
         });
     });
 
