@@ -22,6 +22,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     const swipeThreshold = 50;
     let autoScrollTimer;
     let isPaused = false;
+    let isSwiping = false; // Flag to track if a swipe is in progress
 
     // --- Helpers ---
     function itemsPerView() {
@@ -113,6 +114,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     function carouselTouchStart(e) {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
+        isSwiping = false; // Reset swipe flag on touch start
         stopAutoScroll();
     }
 
@@ -125,6 +127,7 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
 
         if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
             e.preventDefault();
+            isSwiping = true; // Set swipe flag when swiping occurs
         }
     }
 
@@ -132,21 +135,33 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const diffX = touchStartX - touchEndX;
         if (diffX > swipeThreshold) showNextItem();
         else if (diffX < -swipeThreshold) showPrevItem();
+        else if (!isSwiping) {
+            // If no significant swipe occurred, it was likely a tap
+            // The click handler will handle the highlighting, so we don't do anything here
+        }
 
         touchStartX = touchStartY = touchEndX = touchEndY = 0;
 
         if (!isPaused) startAutoScroll();
+        
+        // Reset the swipe flag after a short delay to allow click handler to check it
+        setTimeout(() => {
+            isSwiping = false;
+        }, 100);
     }
 
     // --- Click to pause/highlight ---
     carouselItems.forEach(item => {
         item.addEventListener('click', () => {
-            isPaused = !isPaused;
-            if (isPaused) stopAutoScroll();
-            else startAutoScroll();
+            // Only execute click logic if we're not in the middle of a swipe
+            if (!isSwiping) {
+                isPaused = !isPaused;
+                if (isPaused) stopAutoScroll();
+                else startAutoScroll();
 
-            carouselItems.forEach(i => i.classList.remove('highlight'));
-            if (isPaused) item.classList.add('highlight');
+                carouselItems.forEach(i => i.classList.remove('highlight'));
+                if (isPaused) item.classList.add('highlight');
+            }
         });
     });
 
