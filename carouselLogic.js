@@ -62,9 +62,6 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
     }
 
     function updateCarousel() {
-        // Save current scroll position to prevent unwanted scrolling
-        const savedScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
         setCardWidths();
         updateIndicators();
         const perView = itemsPerView();
@@ -78,11 +75,6 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         const gap = parseFloat(getComputedStyle(carouselTrack).gap) || 0;
         const offset = -(currentIndex * (itemWidth + gap));
         carouselTrack.style.transform = `translateX(${offset}px)`;
-        
-        // Restore scroll position after update
-        if (savedScrollTop !== (window.pageYOffset || document.documentElement.scrollTop)) {
-            window.scrollTo(0, savedScrollTop);
-        }
     }
 
     // --- Navigation (only for swipe/nav buttons) ---
@@ -162,34 +154,8 @@ export function createCarousel(containerId, data, cardGeneratorFunc, autoScrollI
         }
     }
 
-    // --- Click to center carousel on mobile ---
-    carouselItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // Only center on mobile devices
-            if (isMobile()) {
-                // Prevent any default behavior
-                e.preventDefault();
-                
-                // Get the carousel container's position
-                const rect = carouselContainer.getBoundingClientRect();
-                
-                // Calculate the offset to center the carousel vertically
-                const offsetTop = rect.top + window.pageYOffset;
-                const windowHeight = window.innerHeight;
-                const carouselHeight = rect.height;
-                
-                // Scroll to center the carousel
-                const scrollToPosition = offsetTop - (windowHeight / 2) + (carouselHeight / 2);
-                window.scrollTo({
-                    top: scrollToPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Stop propagation to prevent any parent handlers from executing
-                e.stopPropagation();
-            }
-        });
-    });
+    // --- Clicking carousel items does nothing ---
+    // No event handlers attached to carousel items
 
     // --- Event listeners ---
     if (hasNav) {
